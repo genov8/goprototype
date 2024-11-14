@@ -1,0 +1,16 @@
+/goprototipe
+*.swp
+*.swo
+*.DS_Store
+*.vscode/
+.idea/
+vendor/
+*.test
+*.out
+*.exe
+*.o
+*.a
+*.so
+*.dylib
+dist/
+tmp/
