@@ -8,10 +8,6 @@ func NewPrototype(v interface{}) *Prototype {
 	return &Prototype{value: v}
 }
 
-func NewPrototypeCopy(v interface{}) Prototype {
-	return Prototype{value: v}
-}
-
 func (p Prototype) Value() interface{} {
 	return p.value
 }
