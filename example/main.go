@@ -20,4 +20,12 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Result concat:", newStrProto.Value())
+
+	sliceProto := prototipe.NewPrototype([]interface{}{1, "hello", 3.14})
+
+	newSliceProto, err := sliceProto.Append("new_element")
+	if err != nil {
+		log.Fatalf("Error adding element: %v", err)
+	}
+	fmt.Println("Slice after adding:", newSliceProto.Value())
 }
