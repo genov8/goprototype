@@ -18,3 +18,20 @@ func (p *Prototype) ToUpper() (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a string")
 }
+
+func (p *Prototype) ToLower() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		return &Prototype{value: strings.ToLower(str)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
+func (p *Prototype) ToUpperFirst() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		firstSymbol := str[:1]
+		lastStr := str[1:]
+		newStr := strings.ToUpper(firstSymbol) + strings.ToLower(lastStr)
+		return &Prototype{value: newStr}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
