@@ -12,21 +12,21 @@ func (p *Prototype) Concat(s string) (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
-func (p *Prototype) ToUpper() (*Prototype, error) {
+func (p *Prototype) ToUpperCase() (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: strings.ToUpper(str)}, nil
 	}
 	return nil, errors.New("value is not a string")
 }
 
-func (p *Prototype) ToLower() (*Prototype, error) {
+func (p *Prototype) ToLowerCase() (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: strings.ToLower(str)}, nil
 	}
 	return nil, errors.New("value is not a string")
 }
 
-func (p *Prototype) ToUpperFirst() (*Prototype, error) {
+func (p *Prototype) Capitalize() (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		firstSymbol := str[:1]
 		lastStr := str[1:]

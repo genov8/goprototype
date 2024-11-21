@@ -6,9 +6,9 @@ import (
 	"testing"
 )
 
-func TestToUpper(t *testing.T) {
+func TestToUpperCase(t *testing.T) {
 	str := prototipe.NewPrototype("hello")
-	upperStr, err := str.ToUpper()
+	upperStr, err := str.ToUpperCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -18,9 +18,9 @@ func TestToUpper(t *testing.T) {
 	}
 }
 
-func TestToLower(t *testing.T) {
+func TestToLowerCase(t *testing.T) {
 	str := prototipe.NewPrototype("HELLO")
-	upperStr, err := str.ToLower()
+	upperStr, err := str.ToLowerCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
@@ -30,9 +30,9 @@ func TestToLower(t *testing.T) {
 	}
 }
 
-func TestToUpperFirst(t *testing.T) {
+func TestCapitalize(t *testing.T) {
 	str := prototipe.NewPrototype("HELLO")
-	upperStr, err := str.ToUpperFirst()
+	upperStr, err := str.Capitalize()
 	fmt.Println(upperStr)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
