@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"goprototipe/prototipe"
 	"testing"
 )
@@ -33,12 +32,23 @@ func TestToLowerCase(t *testing.T) {
 func TestCapitalize(t *testing.T) {
 	str := prototipe.NewPrototype("HELLO")
 	upperStr, err := str.Capitalize()
-	fmt.Println(upperStr)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
 	}
 
 	if upperStr.Value() != "Hello" {
 		t.Errorf("Expected 'Hello', got %v", upperStr.Value())
+	}
+}
+
+func TestTrim(t *testing.T) {
+	str := prototipe.NewPrototype("Hello World!")
+	upperStr, err := str.Trim("!")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if upperStr.Value() != "Hello World" {
+		t.Errorf("Expected 'Hello World', got %v", upperStr.Value())
 	}
 }
