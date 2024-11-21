@@ -35,3 +35,10 @@ func (p *Prototype) Capitalize() (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a string")
 }
+
+func (p *Prototype) Trim(cutset string) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		return &Prototype{value: strings.Trim(str, cutset)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
