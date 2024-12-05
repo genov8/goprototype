@@ -2,6 +2,7 @@ package tests
 
 import (
 	"goprototipe/prototipe"
+	"reflect"
 	"testing"
 )
 
@@ -50,5 +51,17 @@ func TestTrim(t *testing.T) {
 
 	if upperStr.Value() != "Hello World" {
 		t.Errorf("Expected 'Hello World', got %v", upperStr.Value())
+	}
+}
+
+func TestSplit(t *testing.T) {
+	str := prototipe.NewPrototype("Hello World")
+	splittedStr, err := str.Split(" ")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []string{"Hello", "World"}
+	if !reflect.DeepEqual(splittedStr.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, splittedStr.Value())
 	}
 }
