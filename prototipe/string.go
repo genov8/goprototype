@@ -42,3 +42,10 @@ func (p *Prototype) Trim(cutset string) (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a string")
 }
+
+func (p *Prototype) Split(separator string) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		return &Prototype{value: strings.Split(str, separator)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
