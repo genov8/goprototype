@@ -49,3 +49,14 @@ func (p *Prototype) Split(separator string) (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a string")
 }
+
+func (p *Prototype) Reverse() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		runes := []rune(str)
+		for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+			runes[i], runes[j] = runes[j], runes[i]
+		}
+		return &Prototype{value: string(runes)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
