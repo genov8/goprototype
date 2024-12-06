@@ -65,3 +65,14 @@ func TestSplit(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, splittedStr.Value())
 	}
 }
+
+func TestReverse(t *testing.T) {
+	str := prototipe.NewPrototype("Hello")
+	strReverse, err := str.Reverse()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if strReverse.Value() != "olleH" {
+		t.Errorf("Expected 'olleH', got %v", strReverse.Value())
+	}
+}
