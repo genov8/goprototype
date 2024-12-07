@@ -6,41 +6,34 @@ import (
 )
 
 func (p *Prototype) Concat(s string) (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
-		return &Prototype{value: str + s}, nil
-	}
-	return nil, errors.New("value is not a string")
+	return p.processString(func(str string) string {
+		return str + s
+	})
 }
 
 func (p *Prototype) ToUpperCase() (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
-		return &Prototype{value: strings.ToUpper(str)}, nil
-	}
-	return nil, errors.New("value is not a string")
+	return p.processString(strings.ToUpper)
 }
 
 func (p *Prototype) ToLowerCase() (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
-		return &Prototype{value: strings.ToLower(str)}, nil
-	}
-	return nil, errors.New("value is not a string")
+	return p.processString(strings.ToLower)
 }
 
 func (p *Prototype) Capitalize() (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
+	return p.processString(func(str string) string {
+		if len(str) == 0 {
+			return str
+		}
 		firstSymbol := str[:1]
 		lastStr := str[1:]
-		newStr := strings.ToUpper(firstSymbol) + strings.ToLower(lastStr)
-		return &Prototype{value: newStr}, nil
-	}
-	return nil, errors.New("value is not a string")
+		return strings.ToUpper(firstSymbol) + strings.ToLower(lastStr)
+	})
 }
 
 func (p *Prototype) Trim(cutset string) (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
-		return &Prototype{value: strings.Trim(str, cutset)}, nil
-	}
-	return nil, errors.New("value is not a string")
+	return p.processString(func(str string) string {
+		return strings.Trim(str, cutset)
+	})
 }
 
 func (p *Prototype) Split(separator string) (*Prototype, error) {
@@ -51,20 +44,26 @@ func (p *Prototype) Split(separator string) (*Prototype, error) {
 }
 
 func (p *Prototype) Reverse() (*Prototype, error) {
-	if str, ok := p.value.(string); ok {
+	return p.processString(func(str string) string {
 		runes := []rune(str)
 		for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
 			runes[i], runes[j] = runes[j], runes[i]
 		}
-		return &Prototype{value: string(runes)}, nil
-	}
-	return nil, errors.New("value is not a string")
+		return string(runes)
+	})
 }
 
 func (p *Prototype) StartsWith(prefix string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		result := strings.HasPrefix(str, prefix)
 		return &Prototype{value: result}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
+func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		return &Prototype{value: operation(str)}, nil
 	}
 	return nil, errors.New("value is not a string")
 }
