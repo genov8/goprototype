@@ -76,3 +76,14 @@ func TestReverse(t *testing.T) {
 		t.Errorf("Expected 'olleH', got %v", strReverse.Value())
 	}
 }
+
+func TestStartsWith(t *testing.T) {
+	str := prototipe.NewPrototype("Hello world")
+	strStartsWith, err := str.StartsWith("Hello")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if strStartsWith.Value() != true {
+		t.Errorf("Expected true, got %v", strStartsWith.Value())
+	}
+}
