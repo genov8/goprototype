@@ -60,3 +60,11 @@ func (p *Prototype) Reverse() (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a string")
 }
+
+func (p *Prototype) StartsWith(prefix string) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		result := strings.HasPrefix(str, prefix)
+		return &Prototype{value: result}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
