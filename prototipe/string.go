@@ -61,6 +61,14 @@ func (p *Prototype) StartsWith(prefix string) (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
+func (p *Prototype) EndsWith(prefix string) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		result := strings.HasSuffix(str, prefix)
+		return &Prototype{value: result}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
