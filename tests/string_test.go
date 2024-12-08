@@ -87,3 +87,14 @@ func TestStartsWith(t *testing.T) {
 		t.Errorf("Expected true, got %v", strStartsWith.Value())
 	}
 }
+
+func TestEndsWith(t *testing.T) {
+	str := prototipe.NewPrototype("Hello world")
+	strEndsWith, err := str.EndsWith("world")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if strEndsWith.Value() != true {
+		t.Errorf("Expected true, got %v", strEndsWith.Value())
+	}
+}
