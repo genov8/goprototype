@@ -69,6 +69,12 @@ func (p *Prototype) EndsWith(prefix string) (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
+func (p *Prototype) RemoveWhitespace() (*Prototype, error) {
+	return p.processString(func(str string) string {
+		return strings.ReplaceAll(str, " ", "")
+	})
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
