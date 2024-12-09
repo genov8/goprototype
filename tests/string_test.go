@@ -98,3 +98,16 @@ func TestEndsWith(t *testing.T) {
 		t.Errorf("Expected true, got %v", strEndsWith.Value())
 	}
 }
+
+func TestRemoveWhitespace(t *testing.T) {
+	str := prototipe.NewPrototype("Hello World!")
+
+	strRemoveWhitespace, err := str.RemoveWhitespace()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := "HelloWorld!"
+	if strRemoveWhitespace.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, strRemoveWhitespace.Value())
+	}
+}
