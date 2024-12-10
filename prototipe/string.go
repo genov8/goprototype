@@ -43,16 +43,6 @@ func (p *Prototype) Split(separator string) (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
-func (p *Prototype) Reverse() (*Prototype, error) {
-	return p.processString(func(str string) string {
-		runes := []rune(str)
-		for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-			runes[i], runes[j] = runes[j], runes[i]
-		}
-		return string(runes)
-	})
-}
-
 func (p *Prototype) StartsWith(prefix string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		result := strings.HasPrefix(str, prefix)
