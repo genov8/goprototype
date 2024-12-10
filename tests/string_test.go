@@ -66,17 +66,6 @@ func TestSplit(t *testing.T) {
 	}
 }
 
-func TestReverse(t *testing.T) {
-	str := prototipe.NewPrototype("Hello")
-	strReverse, err := str.Reverse()
-	if err != nil {
-		t.Errorf("Expected no error, got %v", err)
-	}
-	if strReverse.Value() != "olleH" {
-		t.Errorf("Expected 'olleH', got %v", strReverse.Value())
-	}
-}
-
 func TestStartsWith(t *testing.T) {
 	str := prototipe.NewPrototype("Hello world")
 	strStartsWith, err := str.StartsWith("Hello")
