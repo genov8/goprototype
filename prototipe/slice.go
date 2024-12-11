@@ -6,22 +6,18 @@ import (
 )
 
 func (p *Prototype) Append(element interface{}) (*Prototype, error) {
-	if arr, ok := p.value.([]interface{}); ok {
-		newArr := append(arr, element)
-		return &Prototype{value: newArr}, nil
-	}
-	return nil, errors.New("value is not an array")
+	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
+		return append(slice, element), nil
+	})
 }
 
 func (p *Prototype) Remove(index int) (*Prototype, error) {
-	if arr, ok := p.value.([]interface{}); ok {
-		if index < 0 || index >= len(arr) {
+	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
+		if index < 0 || index >= len(slice) {
 			return nil, errors.New("index out of bounds")
 		}
-		newArr := append(arr[:index], arr[index+1:]...)
-		return &Prototype{value: newArr}, nil
-	}
-	return nil, errors.New("value is not an array")
+		return append(slice[:index], slice[index+1:]...), nil
+	})
 }
 
 func (p *Prototype) PrintSlice() (*Prototype, error) {
@@ -33,7 +29,7 @@ func (p *Prototype) PrintSlice() (*Prototype, error) {
 }
 
 func (p *Prototype) Unique() (*Prototype, error) {
-	if slice, ok := p.value.([]interface{}); ok {
+	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
 		seen := make(map[interface{}]bool)
 		var uniqueSlice []interface{}
 
@@ -43,8 +39,17 @@ func (p *Prototype) Unique() (*Prototype, error) {
 				uniqueSlice = append(uniqueSlice, elem)
 			}
 		}
+		return uniqueSlice, nil
+	})
+}
 
-		return &Prototype{value: uniqueSlice}, nil
+func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		result, err := operation(slice)
+		if err != nil {
+			return nil, err
+		}
+		return &Prototype{value: result}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
