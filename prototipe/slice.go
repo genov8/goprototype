@@ -24,11 +24,12 @@ func (p *Prototype) Remove(index int) (*Prototype, error) {
 	return nil, errors.New("value is not an array")
 }
 
-func (p *Prototype) PrintSlice() (string, error) {
+func (p *Prototype) PrintSlice() (*Prototype, error) {
 	if arr, ok := p.value.([]interface{}); ok {
-		return fmt.Sprintf("%v", arr), nil
+		result := fmt.Sprintf("%v", arr)
+		return &Prototype{value: result}, nil
 	}
-	return "", errors.New("value is not an array")
+	return nil, errors.New("value is not a slice")
 }
 
 func (p *Prototype) Unique() (*Prototype, error) {

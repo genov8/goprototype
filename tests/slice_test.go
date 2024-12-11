@@ -41,17 +41,14 @@ func TestRemove(t *testing.T) {
 }
 
 func TestPrintSlice(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
-
-	result, err := sliceProto.PrintSlice()
-
+	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	printProto, err := sliceProto.PrintSlice()
 	if err != nil {
-		t.Errorf("Expected no error while printing slice, got: %v", err)
+		t.Errorf("Expected no error, got %v", err)
 	}
-
-	expected := "[1 2 3 4]"
-	if result != expected {
-		t.Errorf("Expected printed slice %s, got %s", expected, result)
+	expected := "[1 2 3 4 5]"
+	if printProto.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, printProto.Value())
 	}
 }
 
