@@ -30,3 +30,20 @@ func (p *Prototype) PrintSlice() (string, error) {
 	}
 	return "", errors.New("value is not an array")
 }
+
+func (p *Prototype) Unique() (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		seen := make(map[interface{}]bool)
+		var uniqueSlice []interface{}
+
+		for _, elem := range slice {
+			if !seen[elem] {
+				seen[elem] = true
+				uniqueSlice = append(uniqueSlice, elem)
+			}
+		}
+
+		return &Prototype{value: uniqueSlice}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
