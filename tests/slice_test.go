@@ -3,6 +3,7 @@ package tests
 import (
 	"fmt"
 	"goprototipe/prototipe"
+	"reflect"
 	"testing"
 )
 
@@ -51,5 +52,18 @@ func TestPrintSlice(t *testing.T) {
 	expected := "[1 2 3 4]"
 	if result != expected {
 		t.Errorf("Expected printed slice %s, got %s", expected, result)
+	}
+}
+
+func TestUnique(t *testing.T) {
+	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 2, 3, 4, 4, 5})
+	uniqueProto, err := sliceProto.Unique()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	expected := []interface{}{1, 2, 3, 4, 5}
+	if !reflect.DeepEqual(uniqueProto.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, uniqueProto.Value())
 	}
 }
