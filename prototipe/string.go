@@ -5,12 +5,6 @@ import (
 	"strings"
 )
 
-func (p *Prototype) Concat(s string) (*Prototype, error) {
-	return p.processString(func(str string) string {
-		return str + s
-	})
-}
-
 func (p *Prototype) ToUpperCase() (*Prototype, error) {
 	return p.processString(strings.ToUpper)
 }

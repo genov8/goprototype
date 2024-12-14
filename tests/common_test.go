@@ -48,3 +48,28 @@ func TestReverse(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expectedSlice, reversedSliceProto.Value())
 	}
 }
+
+func TestConcat(t *testing.T) {
+	str1 := prototipe.NewPrototype("Hello")
+	str2 := prototipe.NewPrototype(" World!")
+	newStr, err := str1.Concat(str2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if newStr.Value() != "Hello World!" {
+		t.Errorf("Expected 'Hello World', got %v", newStr.Value())
+	}
+
+	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	slice2 := prototipe.NewPrototype([]interface{}{4, 5, 6})
+	concatSliceProto, err := slice1.Concat(slice2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	expectedSlice := []interface{}{1, 2, 3, 4, 5, 6}
+	if !reflect.DeepEqual(concatSliceProto.Value(), expectedSlice) {
+		t.Errorf("Expected %v, got %v", expectedSlice, concatSliceProto.Value())
+	}
+}

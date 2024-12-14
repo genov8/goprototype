@@ -14,13 +14,6 @@ func main() {
 	}
 	fmt.Println("Result add:", numAdd.Value())
 
-	strProto := prototipe.NewPrototype("Hello")
-	newStrProto, err := strProto.Concat(" World!")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Result concat:", newStrProto.Value())
-
 	sliceProto := prototipe.NewPrototype([]interface{}{1, "hello", 3.14})
 
 	newSliceProto, err := sliceProto.Append("new_element")

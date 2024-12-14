@@ -28,15 +28,3 @@ func TestMultiply(t *testing.T) {
 		t.Errorf("Expected 30, got %v", newNum.Value())
 	}
 }
-
-func TestConcat(t *testing.T) {
-	str := prototipe.NewPrototype("Hello")
-	newStr, err := str.Concat(" World")
-	if err != nil {
-		t.Errorf("Expected no error, got %v", err)
-	}
-
-	if newStr.Value() != "Hello World" {
-		t.Errorf("Expected 'Hello World', got %v", newStr.Value())
-	}
-}
