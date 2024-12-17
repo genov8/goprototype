@@ -64,3 +64,16 @@ func TestUnique(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, uniqueProto.Value())
 	}
 }
+
+func TestContains(t *testing.T) {
+	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+
+	containsProto, err := sliceProto.Contains(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if containsProto.Value() != true {
+		t.Errorf("Expected true, got %v", containsProto.Value())
+	}
+}
