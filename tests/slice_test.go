@@ -77,3 +77,16 @@ func TestContains(t *testing.T) {
 		t.Errorf("Expected true, got %v", containsProto.Value())
 	}
 }
+
+func TestIndexOf(t *testing.T) {
+	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+
+	indexProto, err := sliceProto.IndexOf(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if indexProto.Value() != 2 {
+		t.Errorf("Expected index 2, got %v", indexProto.Value())
+	}
+}

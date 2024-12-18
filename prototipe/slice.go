@@ -55,6 +55,18 @@ func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) IndexOf(element interface{}) (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		for i, v := range slice {
+			if v == element {
+				return &Prototype{value: i}, nil
+			}
+		}
+		return &Prototype{value: -1}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
