@@ -25,3 +25,20 @@ func (p *Prototype) Multiply(n float64) (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Divide(divisor float64) (*Prototype, error) {
+	switch value := p.value.(type) {
+	case int:
+		if divisor == 0 {
+			return nil, errors.New("division by zero is not allowed")
+		}
+		return &Prototype{value: float64(value) / divisor}, nil
+	case float64:
+		if divisor == 0 {
+			return nil, errors.New("division by zero is not allowed")
+		}
+		return &Prototype{value: value / divisor}, nil
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}
