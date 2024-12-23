@@ -42,3 +42,17 @@ func (p *Prototype) Divide(divisor float64) (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) IsEven() (*Prototype, error) {
+	switch value := p.value.(type) {
+	case int:
+		return &Prototype{value: value%2 == 0}, nil
+	case float64:
+		if value == float64(int(value)) {
+			return &Prototype{value: int(value)%2 == 0}, nil
+		}
+		return nil, errors.New("value is not an integer")
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}
