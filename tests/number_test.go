@@ -91,3 +91,35 @@ func TestIsEven(t *testing.T) {
 		t.Error("Expected an error for non-number value, got nil")
 	}
 }
+
+func TestIsOdd(t *testing.T) {
+	intProto := prototipe.NewPrototype(7)
+	resultProto, err := intProto.IsOdd()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != true {
+		t.Errorf("Expected true, got %v", resultProto.Value())
+	}
+
+	evenProto := prototipe.NewPrototype(10)
+	resultProto, err = evenProto.IsOdd()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != false {
+		t.Errorf("Expected false, got %v", resultProto.Value())
+	}
+
+	floatProto := prototipe.NewPrototype(10.5)
+	_, err = floatProto.IsOdd()
+	if err == nil {
+		t.Error("Expected an error for float value, got nil")
+	}
+
+	strProto := prototipe.NewPrototype("hello")
+	_, err = strProto.IsOdd()
+	if err == nil {
+		t.Error("Expected an error for non-number value, got nil")
+	}
+}
