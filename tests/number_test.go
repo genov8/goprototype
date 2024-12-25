@@ -123,3 +123,31 @@ func TestIsOdd(t *testing.T) {
 		t.Error("Expected an error for non-number value, got nil")
 	}
 }
+
+func TestModulo(t *testing.T) {
+	intProto := prototipe.NewPrototype(10)
+	resultProto, err := intProto.Modulo(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != 1 {
+		t.Errorf("Expected 1, got %v", resultProto.Value())
+	}
+
+	_, err = intProto.Modulo(0)
+	if err == nil {
+		t.Error("Expected division by zero error, got nil")
+	}
+
+	floatProto := prototipe.NewPrototype(10.5)
+	_, err = floatProto.Modulo(3)
+	if err == nil {
+		t.Error("Expected error for float number, got nil")
+	}
+
+	strProto := prototipe.NewPrototype("hello")
+	_, err = strProto.Modulo(3)
+	if err == nil {
+		t.Error("Expected error for non-number value, got nil")
+	}
+}

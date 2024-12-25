@@ -70,3 +70,20 @@ func (p *Prototype) IsOdd() (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Modulo(divisor int) (*Prototype, error) {
+	switch value := p.value.(type) {
+	case int:
+		if divisor == 0 {
+			return nil, errors.New("division by zero is not allowed")
+		}
+		return &Prototype{value: value % divisor}, nil
+	case float64:
+		if divisor == 0 {
+			return nil, errors.New("division by zero is not allowed")
+		}
+		return nil, errors.New("modulo is not supported for float numbers")
+	default:
+		return nil, errors.New("value is not an integer")
+	}
+}
