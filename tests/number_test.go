@@ -151,3 +151,29 @@ func TestModulo(t *testing.T) {
 		t.Error("Expected error for non-number value, got nil")
 	}
 }
+
+func TestPower(t *testing.T) {
+	intProto := prototipe.NewPrototype(2)
+	resultProto, err := intProto.Power(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != 8.0 {
+		t.Errorf("Expected 8, got %v", resultProto.Value())
+	}
+
+	floatProto := prototipe.NewPrototype(2.5)
+	resultProto, err = floatProto.Power(2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != 6.25 {
+		t.Errorf("Expected 6.25, got %v", resultProto.Value())
+	}
+
+	strProto := prototipe.NewPrototype("hello")
+	_, err = strProto.Power(2)
+	if err == nil {
+		t.Error("Expected an error for non-number value, got nil")
+	}
+}

@@ -2,6 +2,7 @@ package prototipe
 
 import (
 	"errors"
+	"math"
 )
 
 func (p *Prototype) Add(n float64) (*Prototype, error) {
@@ -84,6 +85,19 @@ func (p *Prototype) Modulo(divisor int) (*Prototype, error) {
 		}
 		return nil, errors.New("modulo is not supported for float numbers")
 	default:
-		return nil, errors.New("value is not an integer")
+		return nil, errors.New("value is not an number")
+	}
+}
+
+func (p *Prototype) Power(exp float64) (*Prototype, error) {
+	switch value := p.value.(type) {
+	case int:
+		result := math.Pow(float64(value), exp)
+		return &Prototype{value: result}, nil
+	case float64:
+		result := math.Pow(value, exp)
+		return &Prototype{value: result}, nil
+	default:
+		return nil, errors.New("value is not a number")
 	}
 }
