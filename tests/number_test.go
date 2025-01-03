@@ -177,3 +177,29 @@ func TestPower(t *testing.T) {
 		t.Error("Expected an error for non-number value, got nil")
 	}
 }
+
+func TestSubtract(t *testing.T) {
+	intProto := prototipe.NewPrototype(10)
+	resultProto, err := intProto.Subtract(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != 7 {
+		t.Errorf("Expected 7, got %v", resultProto.Value())
+	}
+
+	floatProto := prototipe.NewPrototype(15.5)
+	resultProto, err = floatProto.Subtract(2.5)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if resultProto.Value() != 13.0 {
+		t.Errorf("Expected 13.0, got %v", resultProto.Value())
+	}
+
+	strProto := prototipe.NewPrototype("hello")
+	_, err = strProto.Subtract(3)
+	if err == nil {
+		t.Error("Expected an error for non-number value, got nil")
+	}
+}

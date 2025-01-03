@@ -101,3 +101,14 @@ func (p *Prototype) Power(exp float64) (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Subtract(value float64) (*Prototype, error) {
+	switch current := p.value.(type) {
+	case int:
+		return &Prototype{value: current - int(value)}, nil
+	case float64:
+		return &Prototype{value: current - value}, nil
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}
