@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"goprototipe/prototipe"
+	"github.com/genov8/goprototipe/prototipe"
 	"testing"
 )
 
