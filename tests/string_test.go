@@ -125,3 +125,33 @@ func TestReplace(t *testing.T) {
 		t.Errorf("Expected an error for non-string value, got none")
 	}
 }
+
+func TestRepeat(t *testing.T) {
+	strPrototype := prototipe.NewPrototype("Go")
+	result, err := strPrototype.Repeat(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "GoGoGo" {
+		t.Errorf("Expected 'GoGoGo', got %v", result.Value())
+	}
+
+	result, err = strPrototype.Repeat(0)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "" {
+		t.Errorf("Expected an empty string, got %v", result.Value())
+	}
+
+	_, err = strPrototype.Repeat(-1)
+	if err == nil {
+		t.Errorf("Expected an error for negative repeat count, got none")
+	}
+
+	intPrototype := prototipe.NewPrototype(123)
+	_, err = intPrototype.Repeat(3)
+	if err == nil {
+		t.Errorf("Expected an error for non-string value, got none")
+	}
+}

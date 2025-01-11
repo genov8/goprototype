@@ -65,6 +65,16 @@ func (p *Prototype) Replace(old, new string) (*Prototype, error) {
 	})
 }
 
+func (p *Prototype) Repeat(count int) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		if count < 0 {
+			return nil, errors.New("repeat count must be non-negative")
+		}
+		return &Prototype{value: strings.Repeat(str, count)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
