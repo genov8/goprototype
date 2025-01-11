@@ -74,6 +74,17 @@ func (p *Prototype) Flatten() (*Prototype, error) {
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) Map(operation func(interface{}) interface{}) (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		mappedSlice := make([]interface{}, len(slice))
+		for i, v := range slice {
+			mappedSlice[i] = operation(v)
+		}
+		return &Prototype{value: mappedSlice}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)

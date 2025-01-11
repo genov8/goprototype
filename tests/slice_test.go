@@ -123,3 +123,43 @@ func TestFlatten(t *testing.T) {
 		t.Errorf("Expected an error for non-slice value, got none")
 	}
 }
+
+func TestMap(t *testing.T) {
+	slicePrototype := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
+	result, err := slicePrototype.Map(func(val interface{}) interface{} {
+		if num, ok := val.(int); ok {
+			return num * 2
+		}
+		return val
+	})
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []interface{}{2, 4, 6, 8}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slicePrototype = prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	result, err = slicePrototype.Map(func(val interface{}) interface{} {
+		if str, ok := val.(string); ok {
+			return str + "!"
+		}
+		return val
+	})
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{"a!", "b!", "c!"}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	intPrototype := prototipe.NewPrototype(123)
+	_, err = intPrototype.Map(func(val interface{}) interface{} {
+		return val
+	})
+	if err == nil {
+		t.Errorf("Expected an error for non-slice value, got none")
+	}
+}
