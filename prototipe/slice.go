@@ -43,18 +43,6 @@ func (p *Prototype) Unique() (*Prototype, error) {
 	})
 }
 
-func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
-	if slice, ok := p.value.([]interface{}); ok {
-		for _, v := range slice {
-			if v == element {
-				return &Prototype{value: true}, nil
-			}
-		}
-		return &Prototype{value: false}, nil
-	}
-	return nil, errors.New("value is not a slice")
-}
-
 func (p *Prototype) IndexOf(element interface{}) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		for i, v := range slice {

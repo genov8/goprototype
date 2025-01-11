@@ -1,6 +1,9 @@
 package prototipe
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 func (p *Prototype) Length() (int, error) {
 	switch v := p.value.(type) {
@@ -36,6 +39,25 @@ func (p *Prototype) Concat(other *Prototype) (*Prototype, error) {
 			return &Prototype{value: append(value1, value2...)}, nil
 		}
 		return nil, errors.New("second value is not a slice")
+	default:
+		return nil, errors.New("value is not a string or slice")
+	}
+}
+
+func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
+	switch value := p.value.(type) {
+	case string:
+		if substr, ok := element.(string); ok {
+			return &Prototype{value: strings.Contains(value, substr)}, nil
+		}
+		return nil, errors.New("element must be a string for string value")
+	case []interface{}:
+		for _, v := range value {
+			if v == element {
+				return &Prototype{value: true}, nil
+			}
+		}
+		return &Prototype{value: false}, nil
 	default:
 		return nil, errors.New("value is not a string or slice")
 	}
