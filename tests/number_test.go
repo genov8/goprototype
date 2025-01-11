@@ -238,3 +238,38 @@ func TestAbs(t *testing.T) {
 		t.Errorf("Expected an error for non-numeric value, got none")
 	}
 }
+
+func TestRound(t *testing.T) {
+	numPrototype := prototipe.NewPrototype(10.4)
+	result, err := numPrototype.Round()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != 10.0 {
+		t.Errorf("Expected 10, got %v", result.Value())
+	}
+
+	numPrototype = prototipe.NewPrototype(10.6)
+	result, err = numPrototype.Round()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != 11.0 {
+		t.Errorf("Expected 11, got %v", result.Value())
+	}
+
+	numPrototype = prototipe.NewPrototype(10)
+	result, err = numPrototype.Round()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != 10 {
+		t.Errorf("Expected 10, got %v", result.Value())
+	}
+
+	strPrototype := prototipe.NewPrototype("string")
+	_, err = strPrototype.Round()
+	if err == nil {
+		t.Errorf("Expected an error for non-numeric value, got none")
+	}
+}

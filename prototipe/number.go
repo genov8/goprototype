@@ -123,3 +123,14 @@ func (p *Prototype) Abs() (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Round() (*Prototype, error) {
+	switch v := p.value.(type) {
+	case int:
+		return &Prototype{value: v}, nil
+	case float64:
+		return &Prototype{value: math.Round(v)}, nil
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}
