@@ -100,3 +100,28 @@ func TestRemoveWhitespace(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, strRemoveWhitespace.Value())
 	}
 }
+
+func TestReplace(t *testing.T) {
+	strPrototype := prototipe.NewPrototype("hello world")
+	result, err := strPrototype.Replace("world", "Go")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "hello Go" {
+		t.Errorf("Expected 'hello Go', got %v", result.Value())
+	}
+
+	result, err = strPrototype.Replace("planet", "Earth")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "hello world" {
+		t.Errorf("Expected 'hello world', got %v", result.Value())
+	}
+
+	intPrototype := prototipe.NewPrototype(123)
+	_, err = intPrototype.Replace("1", "2")
+	if err == nil {
+		t.Errorf("Expected an error for non-string value, got none")
+	}
+}

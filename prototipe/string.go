@@ -59,6 +59,12 @@ func (p *Prototype) RemoveWhitespace() (*Prototype, error) {
 	})
 }
 
+func (p *Prototype) Replace(old, new string) (*Prototype, error) {
+	return p.processString(func(str string) string {
+		return strings.ReplaceAll(str, old, new)
+	})
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
