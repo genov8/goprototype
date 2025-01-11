@@ -203,3 +203,38 @@ func TestSubtract(t *testing.T) {
 		t.Error("Expected an error for non-number value, got nil")
 	}
 }
+
+func TestAbs(t *testing.T) {
+	intPrototype := prototipe.NewPrototype(-10)
+	intResult, err := intPrototype.Abs()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if intResult.Value() != 10 {
+		t.Errorf("Expected 10, got %v", intResult.Value())
+	}
+
+	floatPrototype := prototipe.NewPrototype(-10.5)
+	floatResult, err := floatPrototype.Abs()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if floatResult.Value() != 10.5 {
+		t.Errorf("Expected 10.5, got %v", floatResult.Value())
+	}
+
+	posPrototype := prototipe.NewPrototype(10)
+	posResult, err := posPrototype.Abs()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if posResult.Value() != 10 {
+		t.Errorf("Expected 10, got %v", posResult.Value())
+	}
+
+	stringPrototype := prototipe.NewPrototype("string")
+	_, err = stringPrototype.Abs()
+	if err == nil {
+		t.Errorf("Expected an error for non-numeric value, got none")
+	}
+}

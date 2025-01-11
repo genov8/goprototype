@@ -112,3 +112,14 @@ func (p *Prototype) Subtract(value float64) (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Abs() (*Prototype, error) {
+	switch v := p.value.(type) {
+	case int:
+		return &Prototype{value: int(math.Abs(float64(v)))}, nil
+	case float64:
+		return &Prototype{value: math.Abs(v)}, nil
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}
