@@ -134,3 +134,20 @@ func (p *Prototype) Round() (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Sqrt() (*Prototype, error) {
+	switch v := p.value.(type) {
+	case int:
+		if v < 0 {
+			return nil, errors.New("cannot calculate square root of a negative number")
+		}
+		return &Prototype{value: math.Sqrt(float64(v))}, nil
+	case float64:
+		if v < 0 {
+			return nil, errors.New("cannot calculate square root of a negative number")
+		}
+		return &Prototype{value: math.Sqrt(v)}, nil
+	default:
+		return nil, errors.New("value is not a number")
+	}
+}

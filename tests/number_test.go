@@ -273,3 +273,35 @@ func TestRound(t *testing.T) {
 		t.Errorf("Expected an error for non-numeric value, got none")
 	}
 }
+
+func TestSqrt(t *testing.T) {
+	intPrototype := prototipe.NewPrototype(16)
+	result, err := intPrototype.Sqrt()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != 4.0 {
+		t.Errorf("Expected 4, got %v", result.Value())
+	}
+
+	floatPrototype := prototipe.NewPrototype(20.25)
+	result, err = floatPrototype.Sqrt()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != 4.5 {
+		t.Errorf("Expected 4.5, got %v", result.Value())
+	}
+
+	negativePrototype := prototipe.NewPrototype(-16)
+	_, err = negativePrototype.Sqrt()
+	if err == nil {
+		t.Errorf("Expected an error for negative number, got none")
+	}
+
+	strPrototype := prototipe.NewPrototype("string")
+	_, err = strPrototype.Sqrt()
+	if err == nil {
+		t.Errorf("Expected an error for non-numeric value, got none")
+	}
+}
