@@ -90,3 +90,36 @@ func TestIndexOf(t *testing.T) {
 		t.Errorf("Expected index 2, got %v", indexProto.Value())
 	}
 }
+
+func TestFlatten(t *testing.T) {
+	nestedSlice := prototipe.NewPrototype([]interface{}{
+		[]interface{}{1, 2},
+		[]interface{}{3, []interface{}{4, 5}},
+		6,
+	})
+	result, err := nestedSlice.Flatten()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	expected := []interface{}{1, 2, 3, 4, 5, 6}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	flatSlice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	result, err = flatSlice.Flatten()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if !reflect.DeepEqual(result.Value(), flatSlice.Value()) {
+		t.Errorf("Expected %v, got %v", flatSlice.Value(), result.Value())
+	}
+
+	nonSlice := prototipe.NewPrototype(123)
+	_, err = nonSlice.Flatten()
+	if err == nil {
+		t.Errorf("Expected an error for non-slice value, got none")
+	}
+}

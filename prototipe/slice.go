@@ -55,6 +55,25 @@ func (p *Prototype) IndexOf(element interface{}) (*Prototype, error) {
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) Flatten() (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		var flatSlice []interface{}
+		stack := slice
+		for len(stack) > 0 {
+			item := stack[0]
+			stack = stack[1:]
+
+			if nestedSlice, ok := item.([]interface{}); ok {
+				stack = append(nestedSlice, stack...)
+			} else {
+				flatSlice = append(flatSlice, item)
+			}
+		}
+		return &Prototype{value: flatSlice}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
