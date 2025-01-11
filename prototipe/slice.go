@@ -85,6 +85,19 @@ func (p *Prototype) Map(operation func(interface{}) interface{}) (*Prototype, er
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) Filter(predicate func(interface{}) bool) (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		var filteredSlice []interface{}
+		for _, v := range slice {
+			if predicate(v) {
+				filteredSlice = append(filteredSlice, v)
+			}
+		}
+		return &Prototype{value: filteredSlice}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
