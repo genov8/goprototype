@@ -14,10 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - New methods implemented for slices:
     - `Flatten`: Flattens nested slices into a single slice.
     - `Filter`: Filters elements based on a condition.
+    - `Map`: Applies a function to each element in a slice and returns the transformed slice.
 
 - New methods implemented for strings:
     - `Replace`: Replaces all occurrences of a substring with another substring.
-    - `Contains`: Checks if a string contains a substring.
     - `Repeat`: Repeats a string a specified number of times.
 
 ### Changed
