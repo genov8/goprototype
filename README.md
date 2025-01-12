@@ -26,6 +26,9 @@ Perform mathematical operations on numbers:
 - `Modulo` – Calculates the remainder of division.
 - `Power` – Raises a number to the power.
 - `Subtract` – Subtracts a number.
+- `Abs` – Returns the absolute value of a number.
+- `Round` – Rounds a number to the nearest integer.
+- `Sqrt` – Returns the square root of a number.
 
 ### Slices
 Handle slices with ease:
@@ -35,6 +38,9 @@ Handle slices with ease:
 - `Unique` – Removes duplicate elements.
 - `Contains` – Checks if a slice contains an element.
 - `IndexOf` – Finds the index of an element.
+- `Flatten` – Flattens nested slices into a single slice.
+- `Map` – Applies a function to all elements of a slice.
+- `Filter` – Returns a slice with elements that satisfy a condition.
 
 ### Strings
 Chainable methods for strings:
@@ -46,12 +52,15 @@ Chainable methods for strings:
 - `StartsWith` – Checks if a string starts with a prefix.
 - `EndsWith` – Checks if a string ends with a suffix.
 - `RemoveWhitespace` – Removes all whitespace.
+- `Replace` – Replaces all occurrences of a substring with another
+- `Repeat` – Repeats a string a specified number of times.
 
 ### Common
 Utility methods applicable to multiple types:
 - `Length` – Returns the length of a string or slice.
 - `Reverse` – Reverses a string or slice.
 - `Concat` – Concatenates strings or slices.
+- `Contains` – Checks if a string contains a substring.
 
 ---
 
