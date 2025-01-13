@@ -305,3 +305,31 @@ func TestSqrt(t *testing.T) {
 		t.Errorf("Expected an error for non-numeric value, got none")
 	}
 }
+
+func TestFactorial(t *testing.T) {
+	num := prototipe.NewPrototype(5)
+	result, err := num.Factorial()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := 120
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(0)
+	result, err = num.Factorial()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = 1
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(-3)
+	_, err = num.Factorial()
+	if err == nil {
+		t.Errorf("Expected an error for negative numbers, got none")
+	}
+}

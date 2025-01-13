@@ -151,3 +151,17 @@ func (p *Prototype) Sqrt() (*Prototype, error) {
 		return nil, errors.New("value is not a number")
 	}
 }
+
+func (p *Prototype) Factorial() (*Prototype, error) {
+	if num, ok := p.value.(int); ok {
+		if num < 0 {
+			return nil, errors.New("factorial is not defined for negative numbers")
+		}
+		result := 1
+		for i := 1; i <= num; i++ {
+			result *= i
+		}
+		return &Prototype{value: result}, nil
+	}
+	return nil, errors.New("value is not an integer")
+}
