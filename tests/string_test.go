@@ -155,3 +155,35 @@ func TestRepeat(t *testing.T) {
 		t.Errorf("Expected an error for non-string value, got none")
 	}
 }
+
+func TestReverseWords(t *testing.T) {
+	str := prototipe.NewPrototype("Hello World Go")
+	result, err := str.ReverseWords()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := "Go World Hello"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("Hello")
+	result, err = str.ReverseWords()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "Hello"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("")
+	result, err = str.ReverseWords()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = ""
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+}

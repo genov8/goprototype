@@ -75,6 +75,17 @@ func (p *Prototype) Repeat(count int) (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
+func (p *Prototype) ReverseWords() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		words := strings.Fields(str)
+		for i, j := 0, len(words)-1; i < j; i, j = i+1, j-1 {
+			words[i], words[j] = words[j], words[i]
+		}
+		return &Prototype{value: strings.Join(words, " ")}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
