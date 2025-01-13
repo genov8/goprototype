@@ -203,3 +203,44 @@ func TestFilter(t *testing.T) {
 		t.Errorf("Expected an error for non-slice value, got none")
 	}
 }
+
+func TestChunk(t *testing.T) {
+	slice := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5, 6})
+	result, err := slice.Chunk(2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := [][]interface{}{
+		{1, 2},
+		{3, 4},
+		{5, 6},
+	}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	result, err = slice.Chunk(2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = [][]interface{}{
+		{1, 2},
+		{3, 4},
+		{5},
+	}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	_, err = slice.Chunk(0)
+	if err == nil {
+		t.Errorf("Expected an error for chunk size <= 0, got none")
+	}
+
+	notSlice := prototipe.NewPrototype(123)
+	_, err = notSlice.Chunk(2)
+	if err == nil {
+		t.Errorf("Expected an error for non-slice value, got none")
+	}
+}

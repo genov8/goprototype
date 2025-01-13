@@ -98,6 +98,25 @@ func (p *Prototype) Filter(predicate func(interface{}) bool) (*Prototype, error)
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) Chunk(size int) (*Prototype, error) {
+	if size <= 0 {
+		return nil, errors.New("chunk size must be greater than 0")
+	}
+
+	if slice, ok := p.value.([]interface{}); ok {
+		var chunks [][]interface{}
+		for i := 0; i < len(slice); i += size {
+			end := i + size
+			if end > len(slice) {
+				end = len(slice)
+			}
+			chunks = append(chunks, slice[i:end])
+		}
+		return &Prototype{value: chunks}, nil
+	}
+	return nil, errors.New("value is not a slice")
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
