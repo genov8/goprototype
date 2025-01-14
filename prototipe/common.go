@@ -2,6 +2,7 @@ package prototipe
 
 import (
 	"errors"
+	"reflect"
 	"strings"
 )
 
@@ -61,6 +62,11 @@ func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
 	default:
 		return nil, errors.New("value is not a string or slice")
 	}
+}
+
+func (p *Prototype) Compare(other interface{}) (*Prototype, error) {
+	areEqual := reflect.DeepEqual(p.value, other)
+	return &Prototype{value: areEqual}, nil
 }
 
 func reverseString(input string) string {

@@ -73,3 +73,40 @@ func TestConcat(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expectedSlice, concatSliceProto.Value())
 	}
 }
+
+func TestCompare(t *testing.T) {
+	num := prototipe.NewPrototype(10)
+	result, err := num.Compare(10)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	str := prototipe.NewPrototype("Hello")
+	result, err = str.Compare("World")
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	slice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	result, err = slice.Compare([]interface{}{1, 2, 3})
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	result, err = slice.Compare([]interface{}{1, 2})
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+}
