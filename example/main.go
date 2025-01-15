@@ -21,4 +21,18 @@ func main() {
 		log.Fatalf("Error adding element: %v", err)
 	}
 	fmt.Println("Slice after adding:", newSliceProto.Value())
+
+	// usage with chain
+
+	str := prototipe.NewPrototype("Hello World")
+	result := prototipe.NewChain(str).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.ReverseWords()
+		}).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.ToUpperCase()
+		}).
+		Must()
+
+	fmt.Println("Result:", result.Value()) // "WORLD HELLO"
 }
