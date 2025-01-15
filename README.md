@@ -29,6 +29,7 @@ Perform mathematical operations on numbers:
 - `Abs` – Returns the absolute value of a number.
 - `Round` – Rounds a number to the nearest integer.
 - `Sqrt` – Returns the square root of a number.
+- `Factorial` – Calculates factorial numbers.
 
 ### Slices
 Handle slices with ease:
@@ -41,6 +42,7 @@ Handle slices with ease:
 - `Flatten` – Flattens nested slices into a single slice.
 - `Map` – Applies a function to all elements of a slice.
 - `Filter` – Returns a slice with elements that satisfy a condition.
+- `Chunk` – Splits a slice into pieces of a given size.
 
 ### Strings
 Chainable methods for strings:
@@ -54,6 +56,7 @@ Chainable methods for strings:
 - `RemoveWhitespace` – Removes all whitespace.
 - `Replace` – Replaces all occurrences of a substring with another
 - `Repeat` – Repeats a string a specified number of times.
+- `ReverseWords` – Reverses the order of words in a string.
 
 ### Common
 Utility methods applicable to multiple types:
@@ -61,19 +64,19 @@ Utility methods applicable to multiple types:
 - `Reverse` – Reverses a string or slice.
 - `Concat` – Concatenates strings or slices.
 - `Contains` – Checks if a string contains a substring.
+- `Compare` – Compares two values (numbers, strings, or slices) for equality.
 
 ---
 
 ## Usage
 
-### Basic Example
+### Example
 ```go
 package main
 
 import (
 	"fmt"
 	"log"
-
 	"github.com/genov8/goprototipe/prototipe"
 )
 
@@ -95,6 +98,60 @@ func main() {
 	slice := prototipe.NewPrototype([]interface{}{1, 2, 2, 3})
 	unique, _ := slice.Unique()
 	fmt.Println("Unique Slice:", unique.Value()) // [1 2 3]
+}
+```
+
+## Usage with chain
+
+### Why Chain?
+
+The main idea of this package is to allow chainable method calls to improve code readability and simplify operations on data. However, Go encourages explicit error handling, which can make chaining verbose and less elegant.
+
+To address this, we introduced the `Chain` mechanism:
+
+- Automatically tracks errors during the chain execution.
+- Stops the chain when an error occurs.
+- Provides strict error handling via the `Must()` method.
+
+With `Chain`, you can enjoy the benefits of chainable calls while adhering to Go's best practices for error handling.
+
+### Example
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/genov8/goprototipe/prototipe"
+)
+
+func main() {
+	// Chain operations with error handling
+	str := prototipe.NewPrototype("Hello World")
+	chain := prototipe.NewChain(str).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.ReverseWords()
+		}).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.ToUpperCase()
+		})
+
+	if chain.Err != nil {
+		fmt.Println("Error:", chain.Err)
+	} else {
+		fmt.Println("Result:", chain.Prototype.Value()) // "WORLD HELLO"
+	}
+
+	// Using Must() for strict error handling
+	result := prototipe.NewChain(prototipe.NewPrototype("Go Programming")).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.Split(" ")
+		}).
+		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+			return p.Reverse()
+		}).
+		Must()
+
+	fmt.Println("Strict Chain Result:", result.Value()) // Output: ["Programming" "Go"]
 }
 ```
 
