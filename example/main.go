@@ -24,7 +24,7 @@ func main() {
 
 	// usage with chain
 
-	str := prototipe.NewPrototype("Hello World")
+	str := prototipe.NewPrototype("Hello")
 	result := prototipe.NewChain(str).
 		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
 			return p.ReverseWords()
