@@ -2,6 +2,7 @@ package prototipe
 
 import (
 	"errors"
+	"regexp"
 	"strings"
 )
 
@@ -82,6 +83,17 @@ func (p *Prototype) ReverseWords() (*Prototype, error) {
 			words[i], words[j] = words[j], words[i]
 		}
 		return &Prototype{value: strings.Join(words, " ")}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
+func (p *Prototype) Slugify() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		re := regexp.MustCompile(`[^a-zA-Z0-9\s-]+`)
+		cleaned := re.ReplaceAllString(str, "")
+		slug := strings.ToLower(strings.ReplaceAll(cleaned, " ", "-"))
+		slug = regexp.MustCompile(`-{2,}`).ReplaceAllString(slug, "-")
+		return &Prototype{value: slug}, nil
 	}
 	return nil, errors.New("value is not a string")
 }

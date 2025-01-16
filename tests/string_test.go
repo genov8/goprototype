@@ -187,3 +187,29 @@ func TestReverseWords(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 }
+
+func TestSlugify(t *testing.T) {
+	str := prototipe.NewPrototype("Hello, World!")
+	result, err := str.Slugify()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "hello-world" {
+		t.Errorf("Expected 'hello-world', got %v", result.Value())
+	}
+
+	str = prototipe.NewPrototype("simple-slug")
+	result, err = str.Slugify()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != "simple-slug" {
+		t.Errorf("Expected 'simple-slug', got %v", result.Value())
+	}
+
+	str = prototipe.NewPrototype(42)
+	_, err = str.Slugify()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
