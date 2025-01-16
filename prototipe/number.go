@@ -165,3 +165,20 @@ func (p *Prototype) Factorial() (*Prototype, error) {
 	}
 	return nil, errors.New("value is not an integer")
 }
+
+func (p *Prototype) IsPrime() (*Prototype, error) {
+	num, ok := p.value.(int)
+	if !ok {
+		return nil, errors.New("value is not an integer")
+	}
+
+	if num <= 1 {
+		return &Prototype{value: false}, nil
+	}
+	for i := 2; i <= int(math.Sqrt(float64(num))); i++ {
+		if num%i == 0 {
+			return &Prototype{value: false}, nil
+		}
+	}
+	return &Prototype{value: true}, nil
+}

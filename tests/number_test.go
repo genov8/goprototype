@@ -333,3 +333,38 @@ func TestFactorial(t *testing.T) {
 		t.Errorf("Expected an error for negative numbers, got none")
 	}
 }
+
+func TestIsPrime(t *testing.T) {
+	num := prototipe.NewPrototype(7)
+	result, err := num.IsPrime()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	num = prototipe.NewPrototype(10)
+	result, err = num.IsPrime()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	num = prototipe.NewPrototype(1)
+	result, err = num.IsPrime()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	num = prototipe.NewPrototype("not a number")
+	_, err = num.IsPrime()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
