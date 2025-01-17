@@ -110,3 +110,23 @@ func TestCompare(t *testing.T) {
 		t.Errorf("Expected false, got %v", result.Value())
 	}
 }
+
+func TestType(t *testing.T) {
+	str := prototipe.NewPrototype("Hello")
+	result := str.Type()
+	if result.Value() != "string" {
+		t.Errorf("Expected 'string', got %v", result.Value())
+	}
+
+	num := prototipe.NewPrototype(42)
+	result = num.Type()
+	if result.Value() != "int" {
+		t.Errorf("Expected 'int', got %v", result.Value())
+	}
+
+	slice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	result = slice.Type()
+	if result.Value() != "[]interface {}" {
+		t.Errorf("Expected '[]interface {}', got %v", result.Value())
+	}
+}

@@ -69,6 +69,11 @@ func (p *Prototype) Compare(other interface{}) (*Prototype, error) {
 	return &Prototype{value: areEqual}, nil
 }
 
+func (p *Prototype) Type() *Prototype {
+	typeName := reflect.TypeOf(p.value).String()
+	return &Prototype{value: typeName}
+}
+
 func reverseString(input string) string {
 	runes := []rune(input)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
