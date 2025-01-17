@@ -244,3 +244,45 @@ func TestChunk(t *testing.T) {
 		t.Errorf("Expected an error for non-slice value, got none")
 	}
 }
+
+func TestIntersect(t *testing.T) {
+	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
+	slice2 := prototipe.NewPrototype([]interface{}{3, 4, 5, 6})
+	result, err := slice1.Intersect(slice2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []interface{}{3, 4}
+	if !equalSlices(result.Value().([]interface{}), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice1 = prototipe.NewPrototype([]interface{}{1, 2})
+	slice2 = prototipe.NewPrototype([]interface{}{3, 4})
+	result, err = slice1.Intersect(slice2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{}
+	if !equalSlices(result.Value().([]interface{}), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notSlice := prototipe.NewPrototype(42)
+	_, err = slice1.Intersect(notSlice)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
+
+func equalSlices(a, b []interface{}) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
+	}
+	return true
+}

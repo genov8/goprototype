@@ -117,6 +117,28 @@ func (p *Prototype) Chunk(size int) (*Prototype, error) {
 	return nil, errors.New("value is not a slice")
 }
 
+func (p *Prototype) Intersect(other *Prototype) (*Prototype, error) {
+	slice1, ok1 := p.value.([]interface{})
+	slice2, ok2 := other.value.([]interface{})
+	if !ok1 || !ok2 {
+		return nil, errors.New("both values must be slices")
+	}
+
+	hashMap := make(map[interface{}]bool)
+	for _, item := range slice1 {
+		hashMap[item] = true
+	}
+
+	var intersection []interface{}
+	for _, item := range slice2 {
+		if hashMap[item] {
+			intersection = append(intersection, item)
+		}
+	}
+
+	return &Prototype{value: intersection}, nil
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
