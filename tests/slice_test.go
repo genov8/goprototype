@@ -275,6 +275,43 @@ func TestIntersect(t *testing.T) {
 	}
 }
 
+func TestZip(t *testing.T) {
+	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	slice2 := prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	result, err := slice1.Zip(slice2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := [][2]interface{}{
+		{1, "a"},
+		{2, "b"},
+		{3, "c"},
+	}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice1 = prototipe.NewPrototype([]interface{}{1, 2})
+	slice2 = prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	result, err = slice1.Zip(slice2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = [][2]interface{}{
+		{1, "a"},
+		{2, "b"},
+	}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notSlice := prototipe.NewPrototype(42)
+	_, err = slice1.Zip(notSlice)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
+
 func equalSlices(a, b []interface{}) bool {
 	if len(a) != len(b) {
 		return false

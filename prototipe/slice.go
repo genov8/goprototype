@@ -139,6 +139,26 @@ func (p *Prototype) Intersect(other *Prototype) (*Prototype, error) {
 	return &Prototype{value: intersection}, nil
 }
 
+func (p *Prototype) Zip(other *Prototype) (*Prototype, error) {
+	slice1, ok1 := p.value.([]interface{})
+	slice2, ok2 := other.value.([]interface{})
+	if !ok1 || !ok2 {
+		return nil, errors.New("both values must be slices")
+	}
+
+	length := len(slice1)
+	if len(slice2) < length {
+		length = len(slice2)
+	}
+
+	zipped := make([][2]interface{}, length)
+	for i := 0; i < length; i++ {
+		zipped[i] = [2]interface{}{slice1[i], slice2[i]}
+	}
+
+	return &Prototype{value: zipped}, nil
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
