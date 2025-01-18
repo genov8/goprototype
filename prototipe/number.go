@@ -182,3 +182,19 @@ func (p *Prototype) IsPrime() (*Prototype, error) {
 	}
 	return &Prototype{value: true}, nil
 }
+
+func (p *Prototype) Clamp(min, max float64) (*Prototype, error) {
+	if num, ok := p.value.(float64); ok {
+		if min > max {
+			return nil, errors.New("min cannot be greater than max")
+		}
+		clampedValue := num
+		if num < min {
+			clampedValue = min
+		} else if num > max {
+			clampedValue = max
+		}
+		return &Prototype{value: clampedValue}, nil
+	}
+	return nil, errors.New("value is not a number")
+}

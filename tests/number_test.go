@@ -368,3 +368,47 @@ func TestIsPrime(t *testing.T) {
 		t.Errorf("Expected an error, got nil")
 	}
 }
+
+func TestClamp(t *testing.T) {
+	num := prototipe.NewPrototype(15.0)
+	result, err := num.Clamp(10, 20)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := 15.0
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(5.0)
+	result, err = num.Clamp(10, 20)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = 10.0
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(25.0)
+	result, err = num.Clamp(10, 20)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = 20.0
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str := prototipe.NewPrototype("string")
+	_, err = str.Clamp(10, 20)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	num = prototipe.NewPrototype(15.0)
+	_, err = num.Clamp(20, 10)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
