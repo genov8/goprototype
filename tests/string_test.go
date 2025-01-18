@@ -213,3 +213,47 @@ func TestSlugify(t *testing.T) {
 		t.Errorf("Expected an error, got nil")
 	}
 }
+
+func TestPad(t *testing.T) {
+	str := prototipe.NewPrototype("Go")
+	result, err := str.Pad(5, "*", false)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := "Go***"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("Go")
+	result, err = str.Pad(5, "*", true)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "***Go"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("Golang")
+	result, err = str.Pad(5, "*", false)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "Golang"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("Go")
+	_, err = str.Pad(5, "**", false)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	notStr := prototipe.NewPrototype(42)
+	_, err = notStr.Pad(5, "*", false)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}

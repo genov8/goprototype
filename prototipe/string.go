@@ -98,6 +98,26 @@ func (p *Prototype) Slugify() (*Prototype, error) {
 	return nil, errors.New("value is not a string")
 }
 
+func (p *Prototype) Pad(length int, char string, padLeft bool) (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		if len(char) != 1 {
+			return nil, errors.New("padding character must be a single character")
+		}
+
+		strLen := len(str)
+		if strLen >= length {
+			return &Prototype{value: str}, nil
+		}
+
+		padding := strings.Repeat(char, length-strLen)
+		if padLeft {
+			return &Prototype{value: padding + str}, nil
+		}
+		return &Prototype{value: str + padding}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
