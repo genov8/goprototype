@@ -257,3 +257,41 @@ func TestPad(t *testing.T) {
 		t.Errorf("Expected an error, got nil")
 	}
 }
+
+func TestWordCount(t *testing.T) {
+	str := prototipe.NewPrototype("Hello world from Go")
+	result, err := str.WordCount()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := 4
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("  Hello    world  ")
+	result, err = str.WordCount()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = 2
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("")
+	result, err = str.WordCount()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = 0
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notStr := prototipe.NewPrototype(42)
+	_, err = notStr.WordCount()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}

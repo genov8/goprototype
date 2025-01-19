@@ -118,6 +118,14 @@ func (p *Prototype) Pad(length int, char string, padLeft bool) (*Prototype, erro
 	return nil, errors.New("value is not a string")
 }
 
+func (p *Prototype) WordCount() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		words := strings.Fields(str)
+		return &Prototype{value: len(words)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
 func (p *Prototype) processString(operation func(string) string) (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		return &Prototype{value: operation(str)}, nil
