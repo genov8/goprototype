@@ -3,6 +3,7 @@ package prototipe
 import (
 	"errors"
 	"fmt"
+	"sort"
 )
 
 func (p *Prototype) Append(element interface{}) (*Prototype, error) {
@@ -157,6 +158,48 @@ func (p *Prototype) Zip(other *Prototype) (*Prototype, error) {
 	}
 
 	return &Prototype{value: zipped}, nil
+}
+
+func (p *Prototype) Sort(customComparator func(a, b interface{}) bool) (*Prototype, error) {
+	if slice, ok := p.value.([]interface{}); ok {
+		if customComparator == nil {
+			if isHomogeneous(slice, "int") {
+				sort.Slice(slice, func(i, j int) bool {
+					return slice[i].(int) < slice[j].(int)
+				})
+			} else if isHomogeneous(slice, "string") {
+				sort.Slice(slice, func(i, j int) bool {
+					return slice[i].(string) < slice[j].(string)
+				})
+			} else {
+				return nil, errors.New("slice must contain either all numbers or all strings for default sorting")
+			}
+		} else {
+			sort.Slice(slice, func(i, j int) bool {
+				return customComparator(slice[i], slice[j])
+			})
+		}
+
+		return &Prototype{value: slice}, nil
+	}
+
+	return nil, errors.New("value is not a slice")
+}
+
+func isHomogeneous(slice []interface{}, kind string) bool {
+	for _, v := range slice {
+		switch kind {
+		case "int":
+			if _, ok := v.(int); !ok {
+				return false
+			}
+		case "string":
+			if _, ok := v.(string); !ok {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {

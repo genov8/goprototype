@@ -312,6 +312,52 @@ func TestZip(t *testing.T) {
 	}
 }
 
+func TestSort(t *testing.T) {
+	slice := prototipe.NewPrototype([]interface{}{5, 3, 8, 1})
+	result, err := slice.Sort(nil)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []interface{}{1, 3, 5, 8}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{"banana", "apple", "cherry"})
+	result, err = slice.Sort(nil)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{"apple", "banana", "cherry"}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{5, 3, 8, 1})
+	result, err = slice.Sort(func(a, b interface{}) bool {
+		return a.(int) > b.(int)
+	})
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{8, 5, 3, 1}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notSlice := prototipe.NewPrototype(42)
+	_, err = notSlice.Sort(nil)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{5, "string"})
+	_, err = slice.Sort(nil)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
+
 func equalSlices(a, b []interface{}) bool {
 	if len(a) != len(b) {
 		return false
