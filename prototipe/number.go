@@ -198,3 +198,25 @@ func (p *Prototype) Clamp(min, max float64) (*Prototype, error) {
 	}
 	return nil, errors.New("value is not a number")
 }
+
+func (p *Prototype) Fibonacci() (*Prototype, error) {
+	num, ok := p.value.(int)
+	if !ok || num < 0 {
+		return nil, errors.New("value must be a non-negative integer")
+	}
+
+	if num == 0 {
+		return &Prototype{value: []int{0}}, nil
+	}
+	if num == 1 {
+		return &Prototype{value: []int{0, 1}}, nil
+	}
+
+	fib := []int{0, 1}
+	for len(fib) < num {
+		next := fib[len(fib)-1] + fib[len(fib)-2]
+		fib = append(fib, next)
+	}
+
+	return &Prototype{value: fib}, nil
+}

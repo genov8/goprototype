@@ -2,6 +2,7 @@ package tests
 
 import (
 	"github.com/genov8/goprototipe/prototipe"
+	"reflect"
 	"testing"
 )
 
@@ -408,6 +409,50 @@ func TestClamp(t *testing.T) {
 
 	num = prototipe.NewPrototype(15.0)
 	_, err = num.Clamp(20, 10)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
+
+func TestFibonacci(t *testing.T) {
+	num := prototipe.NewPrototype(5)
+	result, err := num.Fibonacci()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []int{0, 1, 1, 2, 3}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(0)
+	result, err = num.Fibonacci()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []int{0}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	num = prototipe.NewPrototype(1)
+	result, err = num.Fibonacci()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []int{0, 1}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str := prototipe.NewPrototype("string")
+	_, err = str.Fibonacci()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	num = prototipe.NewPrototype(-5)
+	_, err = num.Fibonacci()
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
 	}
