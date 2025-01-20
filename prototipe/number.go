@@ -220,3 +220,13 @@ func (p *Prototype) Fibonacci() (*Prototype, error) {
 
 	return &Prototype{value: fib}, nil
 }
+
+func (p *Prototype) IsPowerOfTwo() (*Prototype, error) {
+	num, ok := p.value.(int)
+	if !ok || num <= 0 {
+		return nil, errors.New("value must be a positive integer")
+	}
+
+	isPower := (num & (num - 1)) == 0
+	return &Prototype{value: isPower}, nil
+}

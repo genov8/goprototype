@@ -457,3 +457,44 @@ func TestFibonacci(t *testing.T) {
 		t.Errorf("Expected an error, got nil")
 	}
 }
+
+func TestIsPowerOfTwo(t *testing.T) {
+	num := prototipe.NewPrototype(8)
+	result, err := num.IsPowerOfTwo()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	num = prototipe.NewPrototype(10)
+	result, err = num.IsPowerOfTwo()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	num = prototipe.NewPrototype(1)
+	result, err = num.IsPowerOfTwo()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	notNum := prototipe.NewPrototype("string")
+	_, err = notNum.IsPowerOfTwo()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	num = prototipe.NewPrototype(-4)
+	_, err = num.IsPowerOfTwo()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
