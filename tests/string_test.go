@@ -295,3 +295,51 @@ func TestWordCount(t *testing.T) {
 		t.Errorf("Expected an error, got nil")
 	}
 }
+
+func TestToCamelCase(t *testing.T) {
+	str := prototipe.NewPrototype("hello world")
+	result, err := str.ToCamelCase()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := "HelloWorld"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("snake_case_example")
+	result, err = str.ToCamelCase()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "SnakeCaseExample"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("kebab-case-example")
+	result, err = str.ToCamelCase()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "KebabCaseExample"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	str = prototipe.NewPrototype("123 test example")
+	result, err = str.ToCamelCase()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = "123TestExample"
+	if result.Value() != expected {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notStr := prototipe.NewPrototype(42)
+	_, err = notStr.ToCamelCase()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}

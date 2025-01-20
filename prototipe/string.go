@@ -4,6 +4,7 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 func (p *Prototype) ToUpperCase() (*Prototype, error) {
@@ -122,6 +123,22 @@ func (p *Prototype) WordCount() (*Prototype, error) {
 	if str, ok := p.value.(string); ok {
 		words := strings.Fields(str)
 		return &Prototype{value: len(words)}, nil
+	}
+	return nil, errors.New("value is not a string")
+}
+
+func (p *Prototype) ToCamelCase() (*Prototype, error) {
+	if str, ok := p.value.(string); ok {
+		words := strings.FieldsFunc(str, func(r rune) bool {
+			return !unicode.IsLetter(r) && !unicode.IsNumber(r)
+		})
+
+		for i := range words {
+			words[i] = strings.Title(strings.ToLower(words[i]))
+		}
+
+		camelCase := strings.Join(words, "")
+		return &Prototype{value: camelCase}, nil
 	}
 	return nil, errors.New("value is not a string")
 }
