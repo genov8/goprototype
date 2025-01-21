@@ -130,3 +130,56 @@ func TestType(t *testing.T) {
 		t.Errorf("Expected '[]interface {}', got %v", result.Value())
 	}
 }
+
+func TestIsEmpty(t *testing.T) {
+	str := prototipe.NewPrototype("")
+	result, err := str.IsEmpty()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	str = prototipe.NewPrototype("Go")
+	result, err = str.IsEmpty()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	slice := prototipe.NewPrototype([]interface{}{})
+	result, err = slice.IsEmpty()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{1, 2, 3})
+	result, err = slice.IsEmpty()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != false {
+		t.Errorf("Expected false, got %v", result.Value())
+	}
+
+	num := prototipe.NewPrototype(0)
+	result, err = num.IsEmpty()
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result.Value() != true {
+		t.Errorf("Expected true, got %v", result.Value())
+	}
+
+	unknown := prototipe.NewPrototype(struct{}{})
+	_, err = unknown.IsEmpty()
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
