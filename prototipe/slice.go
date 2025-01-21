@@ -202,6 +202,24 @@ func isHomogeneous(slice []interface{}, kind string) bool {
 	return true
 }
 
+func (p *Prototype) Rotate(steps int) (*Prototype, error) {
+	slice, ok := p.value.([]interface{})
+	if !ok {
+		return nil, errors.New("value is not a slice")
+	}
+
+	n := len(slice)
+	if n == 0 || steps == 0 {
+		return &Prototype{value: slice}, nil
+	}
+
+	steps = ((steps % n) + n) % n
+
+	rotated := append(slice[n-steps:], slice[:n-steps]...)
+
+	return &Prototype{value: rotated}, nil
+}
+
 func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)

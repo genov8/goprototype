@@ -358,6 +358,54 @@ func TestSort(t *testing.T) {
 	}
 }
 
+func TestRotate(t *testing.T) {
+	slice := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	result, err := slice.Rotate(2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected := []interface{}{4, 5, 1, 2, 3}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	result, err = slice.Rotate(-2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{3, 4, 5, 1, 2}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	result, err = slice.Rotate(7)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{4, 5, 1, 2, 3}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	slice = prototipe.NewPrototype([]interface{}{})
+	result, err = slice.Rotate(3)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	expected = []interface{}{}
+	if !reflect.DeepEqual(result.Value(), expected) {
+		t.Errorf("Expected %v, got %v", expected, result.Value())
+	}
+
+	notSlice := prototipe.NewPrototype(42)
+	_, err = notSlice.Rotate(3)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}
+
 func equalSlices(a, b []interface{}) bool {
 	if len(a) != len(b) {
 		return false
