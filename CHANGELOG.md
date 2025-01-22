@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2025-01-22
+### Added
+- New methods implemented for numbers:
+  - `IsPrime` – Checks if a number is a prime number.
+  - `Clamp` – Restricts a number to a specified range.
+  - `Fibonacci` – Generates a Fibonacci sequence of a given length.
+  - `IsPowerOfTwo` – Checks if a number is a power of two.
+
+- New methods implemented for slices:
+  - `Intersect` – Finds the common elements between two slices.
+  - `Zip` – Combines two slices into pairs (tuples).
+  - `Sort` – Sorts a slice in ascending order (supports custom comparators).
+  - `Rotate` – Rotates elements in a slice left or right by a given number of steps.
+
+- New methods implemented for strings:
+  - `Slugify` – Converts a string into a URL-friendly format by replacing spaces and special characters.
+  - `Pad` – Pads a string to a specified length with a given character.
+  - `WordCount` – Counts the number of words in a string.
+  - `ToCamelCase` – Converts a string to CamelCase format.
+
+- New methods implemented for common:
+  - `Type` – Returns the type of the stored value (e.g., string, slice, int).
+  - `IsEmpty` – Checks if a value is empty (e.g., string is "", slice is empty, or number is zero).
+
 ## [1.2.0] - 2025-01-15
 ### Added
 - New method implemented for numbers:
@@ -45,6 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Added
 - Initial release with foundational methods for numbers, strings, and slices.
 
+[1.3.0]: https://github.com/genov8/goprototipe/releases/tag/v1.3.0
 [1.2.0]: https://github.com/genov8/goprototipe/releases/tag/v1.2.0
 [1.1.0]: https://github.com/genov8/goprototipe/releases/tag/v1.1.0
 [1.0.0]: https://github.com/genov8/goprototipe/releases/tag/v1.0.0
