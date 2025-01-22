@@ -30,6 +30,10 @@ Perform mathematical operations on numbers:
 - `Round` – Rounds a number to the nearest integer.
 - `Sqrt` – Returns the square root of a number.
 - `Factorial` – Calculates factorial numbers.
+- `IsPrime` – Checks if a number is a prime number.
+- `Clamp` – Restricts a number to a specified range.
+- `Fibonacci` – Generates a Fibonacci sequence of a given length.
+- `IsPowerOfTwo` – Checks if a number is a power of two.
 
 ### Slices
 Handle slices with ease:
@@ -43,6 +47,10 @@ Handle slices with ease:
 - `Map` – Applies a function to all elements of a slice.
 - `Filter` – Returns a slice with elements that satisfy a condition.
 - `Chunk` – Splits a slice into pieces of a given size.
+- `Intersect` – Finds the common elements between two slices.
+- `Zip` – Combines two slices into pairs (tuples).
+- `Sort` – Sorts a slice in ascending order (supports custom comparators).
+- `Rotate` – Rotates elements in a slice left or right by a given number of steps.
 
 ### Strings
 Chainable methods for strings:
@@ -57,6 +65,11 @@ Chainable methods for strings:
 - `Replace` – Replaces all occurrences of a substring with another
 - `Repeat` – Repeats a string a specified number of times.
 - `ReverseWords` – Reverses the order of words in a string.
+- `Slugify` – Converts a string into a URL-friendly format by replacing spaces and special characters.
+- `Pad` – Pads a string to a specified length with a given character.
+- `WordCount` – Counts the number of words in a string.
+- `ToCamelCase` – Converts a string to CamelCase format.
+
 
 ### Common
 Utility methods applicable to multiple types:
@@ -65,6 +78,8 @@ Utility methods applicable to multiple types:
 - `Concat` – Concatenates strings or slices.
 - `Contains` – Checks if a string contains a substring.
 - `Compare` – Compares two values (numbers, strings, or slices) for equality.
+- `Type` – Returns the type of the stored value (e.g., string, slice, int).
+- `IsEmpty` – Checks if a value is empty (e.g., string is "", slice is empty, or number is zero).
 
 ---
 
