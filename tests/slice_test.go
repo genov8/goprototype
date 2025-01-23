@@ -2,13 +2,13 @@ package tests
 
 import (
 	"fmt"
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 	"reflect"
 	"testing"
 )
 
 func TestAppend(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3})
 
 	newSliceProto, err := sliceProto.Append(4)
 	if err != nil {
@@ -22,7 +22,7 @@ func TestAppend(t *testing.T) {
 }
 
 func TestRemove(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3})
 
 	newSliceProto, err := sliceProto.Remove(1)
 	if err != nil {
@@ -41,7 +41,7 @@ func TestRemove(t *testing.T) {
 }
 
 func TestPrintSlice(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	printProto, err := sliceProto.PrintSlice()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -53,7 +53,7 @@ func TestPrintSlice(t *testing.T) {
 }
 
 func TestUnique(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 2, 3, 4, 4, 5})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 2, 3, 4, 4, 5})
 	uniqueProto, err := sliceProto.Unique()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -66,7 +66,7 @@ func TestUnique(t *testing.T) {
 }
 
 func TestContains(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 
 	containsProto, err := sliceProto.Contains(3)
 	if err != nil {
@@ -79,7 +79,7 @@ func TestContains(t *testing.T) {
 }
 
 func TestIndexOf(t *testing.T) {
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 
 	indexProto, err := sliceProto.IndexOf(3)
 	if err != nil {
@@ -92,7 +92,7 @@ func TestIndexOf(t *testing.T) {
 }
 
 func TestFlatten(t *testing.T) {
-	nestedSlice := prototipe.NewPrototype([]interface{}{
+	nestedSlice := prototype.NewPrototype([]interface{}{
 		[]interface{}{1, 2},
 		[]interface{}{3, []interface{}{4, 5}},
 		6,
@@ -107,7 +107,7 @@ func TestFlatten(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	flatSlice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	flatSlice := prototype.NewPrototype([]interface{}{1, 2, 3})
 	result, err = flatSlice.Flatten()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -117,7 +117,7 @@ func TestFlatten(t *testing.T) {
 		t.Errorf("Expected %v, got %v", flatSlice.Value(), result.Value())
 	}
 
-	nonSlice := prototipe.NewPrototype(123)
+	nonSlice := prototype.NewPrototype(123)
 	_, err = nonSlice.Flatten()
 	if err == nil {
 		t.Errorf("Expected an error for non-slice value, got none")
@@ -125,7 +125,7 @@ func TestFlatten(t *testing.T) {
 }
 
 func TestMap(t *testing.T) {
-	slicePrototype := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
+	slicePrototype := prototype.NewPrototype([]interface{}{1, 2, 3, 4})
 	result, err := slicePrototype.Map(func(val interface{}) interface{} {
 		if num, ok := val.(int); ok {
 			return num * 2
@@ -140,7 +140,7 @@ func TestMap(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slicePrototype = prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	slicePrototype = prototype.NewPrototype([]interface{}{"a", "b", "c"})
 	result, err = slicePrototype.Map(func(val interface{}) interface{} {
 		if str, ok := val.(string); ok {
 			return str + "!"
@@ -155,7 +155,7 @@ func TestMap(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	intPrototype := prototipe.NewPrototype(123)
+	intPrototype := prototype.NewPrototype(123)
 	_, err = intPrototype.Map(func(val interface{}) interface{} {
 		return val
 	})
@@ -165,7 +165,7 @@ func TestMap(t *testing.T) {
 }
 
 func TestFilter(t *testing.T) {
-	slicePrototype := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	slicePrototype := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	result, err := slicePrototype.Filter(func(val interface{}) bool {
 		if num, ok := val.(int); ok {
 			return num%2 == 0
@@ -180,7 +180,7 @@ func TestFilter(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slicePrototype = prototipe.NewPrototype([]interface{}{"apple", "banana", "cherry"})
+	slicePrototype = prototype.NewPrototype([]interface{}{"apple", "banana", "cherry"})
 	result, err = slicePrototype.Filter(func(val interface{}) bool {
 		if str, ok := val.(string); ok {
 			return len(str) > 5
@@ -195,7 +195,7 @@ func TestFilter(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	intPrototype := prototipe.NewPrototype(123)
+	intPrototype := prototype.NewPrototype(123)
 	_, err = intPrototype.Filter(func(val interface{}) bool {
 		return true
 	})
@@ -205,7 +205,7 @@ func TestFilter(t *testing.T) {
 }
 
 func TestChunk(t *testing.T) {
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5, 6})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5, 6})
 	result, err := slice.Chunk(2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -219,7 +219,7 @@ func TestChunk(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	slice = prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	result, err = slice.Chunk(2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -238,7 +238,7 @@ func TestChunk(t *testing.T) {
 		t.Errorf("Expected an error for chunk size <= 0, got none")
 	}
 
-	notSlice := prototipe.NewPrototype(123)
+	notSlice := prototype.NewPrototype(123)
 	_, err = notSlice.Chunk(2)
 	if err == nil {
 		t.Errorf("Expected an error for non-slice value, got none")
@@ -246,8 +246,8 @@ func TestChunk(t *testing.T) {
 }
 
 func TestIntersect(t *testing.T) {
-	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
-	slice2 := prototipe.NewPrototype([]interface{}{3, 4, 5, 6})
+	slice1 := prototype.NewPrototype([]interface{}{1, 2, 3, 4})
+	slice2 := prototype.NewPrototype([]interface{}{3, 4, 5, 6})
 	result, err := slice1.Intersect(slice2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -257,8 +257,8 @@ func TestIntersect(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice1 = prototipe.NewPrototype([]interface{}{1, 2})
-	slice2 = prototipe.NewPrototype([]interface{}{3, 4})
+	slice1 = prototype.NewPrototype([]interface{}{1, 2})
+	slice2 = prototype.NewPrototype([]interface{}{3, 4})
 	result, err = slice1.Intersect(slice2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -268,7 +268,7 @@ func TestIntersect(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notSlice := prototipe.NewPrototype(42)
+	notSlice := prototype.NewPrototype(42)
 	_, err = slice1.Intersect(notSlice)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -276,8 +276,8 @@ func TestIntersect(t *testing.T) {
 }
 
 func TestZip(t *testing.T) {
-	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3})
-	slice2 := prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	slice1 := prototype.NewPrototype([]interface{}{1, 2, 3})
+	slice2 := prototype.NewPrototype([]interface{}{"a", "b", "c"})
 	result, err := slice1.Zip(slice2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -291,8 +291,8 @@ func TestZip(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice1 = prototipe.NewPrototype([]interface{}{1, 2})
-	slice2 = prototipe.NewPrototype([]interface{}{"a", "b", "c"})
+	slice1 = prototype.NewPrototype([]interface{}{1, 2})
+	slice2 = prototype.NewPrototype([]interface{}{"a", "b", "c"})
 	result, err = slice1.Zip(slice2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -305,7 +305,7 @@ func TestZip(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notSlice := prototipe.NewPrototype(42)
+	notSlice := prototype.NewPrototype(42)
 	_, err = slice1.Zip(notSlice)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -313,7 +313,7 @@ func TestZip(t *testing.T) {
 }
 
 func TestSort(t *testing.T) {
-	slice := prototipe.NewPrototype([]interface{}{5, 3, 8, 1})
+	slice := prototype.NewPrototype([]interface{}{5, 3, 8, 1})
 	result, err := slice.Sort(nil)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -323,7 +323,7 @@ func TestSort(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{"banana", "apple", "cherry"})
+	slice = prototype.NewPrototype([]interface{}{"banana", "apple", "cherry"})
 	result, err = slice.Sort(nil)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -333,7 +333,7 @@ func TestSort(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{5, 3, 8, 1})
+	slice = prototype.NewPrototype([]interface{}{5, 3, 8, 1})
 	result, err = slice.Sort(func(a, b interface{}) bool {
 		return a.(int) > b.(int)
 	})
@@ -345,13 +345,13 @@ func TestSort(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notSlice := prototipe.NewPrototype(42)
+	notSlice := prototype.NewPrototype(42)
 	_, err = notSlice.Sort(nil)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{5, "string"})
+	slice = prototype.NewPrototype([]interface{}{5, "string"})
 	_, err = slice.Sort(nil)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -359,7 +359,7 @@ func TestSort(t *testing.T) {
 }
 
 func TestRotate(t *testing.T) {
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	result, err := slice.Rotate(2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -369,7 +369,7 @@ func TestRotate(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	slice = prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	result, err = slice.Rotate(-2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -379,7 +379,7 @@ func TestRotate(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{1, 2, 3, 4, 5})
+	slice = prototype.NewPrototype([]interface{}{1, 2, 3, 4, 5})
 	result, err = slice.Rotate(7)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -389,7 +389,7 @@ func TestRotate(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{})
+	slice = prototype.NewPrototype([]interface{}{})
 	result, err = slice.Rotate(3)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -399,7 +399,7 @@ func TestRotate(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notSlice := prototipe.NewPrototype(42)
+	notSlice := prototype.NewPrototype(42)
 	_, err = notSlice.Rotate(3)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")

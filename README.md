@@ -1,4 +1,4 @@
-# goprototipe
+# goprototype
 
 A lightweight Go library for working with strings, slices, and numbers. This library provides chainable methods to enhance productivity and code readability.
 
@@ -9,7 +9,7 @@ A lightweight Go library for working with strings, slices, and numbers. This lib
 To install the package, use:
 
 ```bash
-go get -u github.com/genov8/goprototipe
+go get -u github.com/genov8/goprototype
 ```
 
 ---
@@ -92,25 +92,25 @@ package main
 import (
 	"fmt"
 	"log"
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 )
 
 func main() {
 	// Number operations
-	num := prototipe.NewPrototype(10)
-	result, err := num.Add(5).Multiply(2).Divide(3)
+	num := prototype.NewPrototype(10)
+	result, err := num.Add(5)
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}
-	fmt.Println("Result:", result.Value()) // Result: 10
+	fmt.Println("Result:", result.Value()) // Result: 15
 
 	// String operations
-	str := prototipe.NewPrototype(" hello world ")
-	trimmed, _ := str.Trim(" ").Capitalize()
-	fmt.Println("Trimmed and Capitalized:", trimmed.Value()) // "Hello world"
+	str := prototype.NewPrototype(" hello world ")
+	trimmed, _ := str.Trim(" ")
+	fmt.Println("Trimmed and Capitalized:", trimmed.Value()) // "hello world"
 
 	// Slice operations
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 2, 3})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 2, 3})
 	unique, _ := slice.Unique()
 	fmt.Println("Unique Slice:", unique.Value()) // [1 2 3]
 }
@@ -136,17 +136,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 )
 
 func main() {
 	// Chain operations with error handling
-	str := prototipe.NewPrototype("Hello World")
-	chain := prototipe.NewChain(str).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	str := prototype.NewPrototype("Hello World")
+	chain := prototype.NewChain(str).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ReverseWords()
 		}).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ToUpperCase()
 		})
 
@@ -157,11 +157,11 @@ func main() {
 	}
 
 	// Using Must() for strict error handling
-	result := prototipe.NewChain(prototipe.NewPrototype("Go Programming")).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	result := prototype.NewChain(prototype.NewPrototype("Go Programming")).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.Split(" ")
 		}).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.Reverse()
 		}).
 		Must()

@@ -1,13 +1,13 @@
 package tests
 
 import (
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 	"reflect"
 	"testing"
 )
 
 func TestLength(t *testing.T) {
-	str := prototipe.NewPrototype("Hello")
+	str := prototype.NewPrototype("Hello")
 	length, err := str.Length()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -17,7 +17,7 @@ func TestLength(t *testing.T) {
 		t.Errorf("Expected 5, got %v", length)
 	}
 
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 3, 4})
 	length, err = slice.Length()
 	if err != nil {
 		t.Errorf("Expected no error for slice, got %v", err)
@@ -28,7 +28,7 @@ func TestLength(t *testing.T) {
 }
 
 func TestReverse(t *testing.T) {
-	strProto := prototipe.NewPrototype("Hello")
+	strProto := prototype.NewPrototype("Hello")
 	reversedProto, err := strProto.Reverse()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -38,7 +38,7 @@ func TestReverse(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expectedStr, reversedProto.Value())
 	}
 
-	sliceProto := prototipe.NewPrototype([]interface{}{1, 2, 3, 4})
+	sliceProto := prototype.NewPrototype([]interface{}{1, 2, 3, 4})
 	reversedSliceProto, err := sliceProto.Reverse()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -50,8 +50,8 @@ func TestReverse(t *testing.T) {
 }
 
 func TestConcat(t *testing.T) {
-	str1 := prototipe.NewPrototype("Hello")
-	str2 := prototipe.NewPrototype(" World!")
+	str1 := prototype.NewPrototype("Hello")
+	str2 := prototype.NewPrototype(" World!")
 	newStr, err := str1.Concat(str2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -61,8 +61,8 @@ func TestConcat(t *testing.T) {
 		t.Errorf("Expected 'Hello World', got %v", newStr.Value())
 	}
 
-	slice1 := prototipe.NewPrototype([]interface{}{1, 2, 3})
-	slice2 := prototipe.NewPrototype([]interface{}{4, 5, 6})
+	slice1 := prototype.NewPrototype([]interface{}{1, 2, 3})
+	slice2 := prototype.NewPrototype([]interface{}{4, 5, 6})
 	concatSliceProto, err := slice1.Concat(slice2)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -75,7 +75,7 @@ func TestConcat(t *testing.T) {
 }
 
 func TestCompare(t *testing.T) {
-	num := prototipe.NewPrototype(10)
+	num := prototype.NewPrototype(10)
 	result, err := num.Compare(10)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -84,7 +84,7 @@ func TestCompare(t *testing.T) {
 		t.Errorf("Expected true, got %v", result.Value())
 	}
 
-	str := prototipe.NewPrototype("Hello")
+	str := prototype.NewPrototype("Hello")
 	result, err = str.Compare("World")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -93,7 +93,7 @@ func TestCompare(t *testing.T) {
 		t.Errorf("Expected false, got %v", result.Value())
 	}
 
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 3})
 	result, err = slice.Compare([]interface{}{1, 2, 3})
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -112,19 +112,19 @@ func TestCompare(t *testing.T) {
 }
 
 func TestType(t *testing.T) {
-	str := prototipe.NewPrototype("Hello")
+	str := prototype.NewPrototype("Hello")
 	result := str.Type()
 	if result.Value() != "string" {
 		t.Errorf("Expected 'string', got %v", result.Value())
 	}
 
-	num := prototipe.NewPrototype(42)
+	num := prototype.NewPrototype(42)
 	result = num.Type()
 	if result.Value() != "int" {
 		t.Errorf("Expected 'int', got %v", result.Value())
 	}
 
-	slice := prototipe.NewPrototype([]interface{}{1, 2, 3})
+	slice := prototype.NewPrototype([]interface{}{1, 2, 3})
 	result = slice.Type()
 	if result.Value() != "[]interface {}" {
 		t.Errorf("Expected '[]interface {}', got %v", result.Value())
@@ -132,7 +132,7 @@ func TestType(t *testing.T) {
 }
 
 func TestIsEmpty(t *testing.T) {
-	str := prototipe.NewPrototype("")
+	str := prototype.NewPrototype("")
 	result, err := str.IsEmpty()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -141,7 +141,7 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("Expected true, got %v", result.Value())
 	}
 
-	str = prototipe.NewPrototype("Go")
+	str = prototype.NewPrototype("Go")
 	result, err = str.IsEmpty()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -150,7 +150,7 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("Expected false, got %v", result.Value())
 	}
 
-	slice := prototipe.NewPrototype([]interface{}{})
+	slice := prototype.NewPrototype([]interface{}{})
 	result, err = slice.IsEmpty()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -159,7 +159,7 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("Expected true, got %v", result.Value())
 	}
 
-	slice = prototipe.NewPrototype([]interface{}{1, 2, 3})
+	slice = prototype.NewPrototype([]interface{}{1, 2, 3})
 	result, err = slice.IsEmpty()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -168,7 +168,7 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("Expected false, got %v", result.Value())
 	}
 
-	num := prototipe.NewPrototype(0)
+	num := prototype.NewPrototype(0)
 	result, err = num.IsEmpty()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -177,7 +177,7 @@ func TestIsEmpty(t *testing.T) {
 		t.Errorf("Expected true, got %v", result.Value())
 	}
 
-	unknown := prototipe.NewPrototype(struct{}{})
+	unknown := prototype.NewPrototype(struct{}{})
 	_, err = unknown.IsEmpty()
 	if err == nil {
 		t.Errorf("Expected an error, got nil")

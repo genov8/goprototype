@@ -1,17 +1,17 @@
 package tests
 
 import (
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 	"testing"
 )
 
 func TestChainSuccess(t *testing.T) {
-	str := prototipe.NewPrototype("Hello World")
-	chain := prototipe.NewChain(str).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	str := prototype.NewPrototype("Hello World")
+	chain := prototype.NewChain(str).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ReverseWords()
 		}).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ToUpperCase()
 		})
 
@@ -25,12 +25,12 @@ func TestChainSuccess(t *testing.T) {
 }
 
 func TestChainError(t *testing.T) {
-	str := prototipe.NewPrototype(42)
-	chain := prototipe.NewChain(str).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	str := prototype.NewPrototype(42)
+	chain := prototype.NewChain(str).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ToUpperCase()
 		}).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ReverseWords()
 		})
 
@@ -40,9 +40,9 @@ func TestChainError(t *testing.T) {
 }
 
 func TestChainMustSuccess(t *testing.T) {
-	num := prototipe.NewPrototype(42)
-	chain := prototipe.NewChain(num).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	num := prototype.NewPrototype(42)
+	chain := prototype.NewChain(num).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.Add(42)
 		}).
 		Must()
@@ -59,9 +59,9 @@ func TestChainMustError(t *testing.T) {
 		}
 	}()
 
-	str := prototipe.NewPrototype(42)
-	prototipe.NewChain(str).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	str := prototype.NewPrototype(42)
+	prototype.NewChain(str).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ToUpperCase()
 		}).
 		Must()

@@ -2,19 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/genov8/goprototipe/prototipe"
+	"github.com/genov8/goprototype/prototype"
 	"log"
 )
 
 func main() {
-	num := prototipe.NewPrototype(10)
+	num := prototype.NewPrototype(10)
 	numAdd, err := num.Add(2)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Result add:", numAdd.Value())
 
-	sliceProto := prototipe.NewPrototype([]interface{}{1, "hello", 3.14})
+	sliceProto := prototype.NewPrototype([]interface{}{1, "hello", 3.14})
 
 	newSliceProto, err := sliceProto.Append("new_element")
 	if err != nil {
@@ -24,12 +24,12 @@ func main() {
 
 	// usage with chain
 
-	str := prototipe.NewPrototype("Hello")
-	result := prototipe.NewChain(str).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+	str := prototype.NewPrototype("Hello world")
+	result := prototype.NewChain(str).
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ReverseWords()
 		}).
-		Invoke(func(p *prototipe.Prototype) (*prototipe.Prototype, error) {
+		Invoke(func(p *prototype.Prototype) (*prototype.Prototype, error) {
 			return p.ToUpperCase()
 		}).
 		Must()

@@ -1,3 +1,3 @@
-module github.com/genov8/goprototipe
+module github.com/genov8/goprototype
 
 go 1.20

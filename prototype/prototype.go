@@ -1,4 +1,4 @@
-package prototipe
+package prototype
 
 type Prototype struct {
 	value interface{}

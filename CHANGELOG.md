@@ -69,7 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Added
 - Initial release with foundational methods for numbers, strings, and slices.
 
-[1.3.0]: https://github.com/genov8/goprototipe/releases/tag/v1.3.0
-[1.2.0]: https://github.com/genov8/goprototipe/releases/tag/v1.2.0
-[1.1.0]: https://github.com/genov8/goprototipe/releases/tag/v1.1.0
-[1.0.0]: https://github.com/genov8/goprototipe/releases/tag/v1.0.0
+[1.3.0]: https://github.com/genov8/goprototype/releases/tag/v1.3.0
+[1.2.0]: https://github.com/genov8/goprototype/releases/tag/v1.2.0
+[1.1.0]: https://github.com/genov8/goprototype/releases/tag/v1.1.0
+[1.0.0]: https://github.com/genov8/goprototype/releases/tag/v1.0.0
