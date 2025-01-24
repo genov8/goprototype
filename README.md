@@ -9,7 +9,7 @@ A lightweight Go library for working with strings, slices, and numbers. This lib
 To install the package, use:
 
 ```bash
-go get -u github.com/genov8/goprototype
+go get -u github.com/genov8/goprototype/v2
 ```
 
 ---
@@ -86,13 +86,14 @@ Utility methods applicable to multiple types:
 ## Usage
 
 ### Example
+
 ```go
 package main
 
 import (
 	"fmt"
+	"github.com/genov8/goprototype/v2/prototype"
 	"log"
-	"github.com/genov8/goprototype/prototype"
 )
 
 func main() {
@@ -131,12 +132,13 @@ To address this, we introduced the `Chain` mechanism:
 With `Chain`, you can enjoy the benefits of chainable calls while adhering to Go's best practices for error handling.
 
 ### Example
+
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/genov8/goprototype/prototype"
+	"github.com/genov8/goprototype/v2/prototype"
 )
 
 func main() {
