@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/genov8/goprototype/prototype"
+	"github.com/genov8/goprototype/v2/prototype"
 	"log"
 )
 

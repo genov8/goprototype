@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"github.com/genov8/goprototype/prototype"
+	"github.com/genov8/goprototype/v2/prototype"
 	"reflect"
 	"testing"
 )
