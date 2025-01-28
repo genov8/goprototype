@@ -2,6 +2,7 @@ package prototype
 
 type Prototype struct {
 	value interface{}
+	err   error
 }
 
 func NewPrototype(v interface{}) *Prototype {
@@ -38,4 +39,12 @@ func (c *Chain) Invoke(method func(*Prototype) (*Prototype, error)) *Chain {
 	}
 	c.Prototype, c.Err = method(c.Prototype)
 	return c
+}
+
+func (p *Prototype) Error() error {
+	return p.err
+}
+
+func (p *Prototype) SetError(err error) {
+	p.err = err
 }
