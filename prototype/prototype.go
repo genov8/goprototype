@@ -61,3 +61,14 @@ func (p *Prototype) Length() (int, error) {
 		return 0, errors.New("value is neither a string nor an array")
 	}
 }
+
+func (p *Prototype) Reverse() (*Prototype, error) {
+	switch value := p.value.(type) {
+	case string:
+		return &Prototype{value: reverseString(value)}, nil
+	case []interface{}:
+		return &Prototype{value: reverseSlice(value)}, nil
+	default:
+		return nil, errors.New("value is not a string or slice")
+	}
+}

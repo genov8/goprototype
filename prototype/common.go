@@ -6,17 +6,6 @@ import (
 	"strings"
 )
 
-func (p *Prototype) Reverse() (*Prototype, error) {
-	switch value := p.value.(type) {
-	case string:
-		return &Prototype{value: reverseString(value)}, nil
-	case []interface{}:
-		return &Prototype{value: reverseSlice(value)}, nil
-	default:
-		return nil, errors.New("value is not a string or slice")
-	}
-}
-
 func (p *Prototype) Concat(other *Prototype) (*Prototype, error) {
 	switch value1 := p.value.(type) {
 	case string:
