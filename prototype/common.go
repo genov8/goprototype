@@ -6,23 +6,6 @@ import (
 	"strings"
 )
 
-func (p *Prototype) Concat(other *Prototype) (*Prototype, error) {
-	switch value1 := p.value.(type) {
-	case string:
-		if value2, ok := other.value.(string); ok {
-			return &Prototype{value: value1 + value2}, nil
-		}
-		return nil, errors.New("second value is not a string")
-	case []interface{}:
-		if value2, ok := other.value.([]interface{}); ok {
-			return &Prototype{value: append(value1, value2...)}, nil
-		}
-		return nil, errors.New("second value is not a slice")
-	default:
-		return nil, errors.New("value is not a string or slice")
-	}
-}
-
 func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
 	switch value := p.value.(type) {
 	case string:
