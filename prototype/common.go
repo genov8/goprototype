@@ -5,10 +5,7 @@ import (
 	"reflect"
 )
 
-func (p *Prototype) Type() *Prototype {
-	typeName := reflect.TypeOf(p.value).String()
-	return &Prototype{value: typeName}
-}
+
 
 func (p *Prototype) IsEmpty() (*Prototype, error) {
 	switch v := p.value.(type) {
