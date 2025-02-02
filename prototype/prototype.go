@@ -109,6 +109,11 @@ func (p *Prototype) Contains(element interface{}) (*Prototype, error) {
 	}
 }
 
+func (p *Prototype) Compare(other interface{}) (*Prototype, error) {
+	areEqual := reflect.DeepEqual(p.value, other)
+	return &Prototype{value: areEqual}, nil
+}
+
 func reverseString(input string) string {
 	runes := []rune(input)
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {

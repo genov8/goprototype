@@ -5,11 +5,6 @@ import (
 	"reflect"
 )
 
-func (p *Prototype) Compare(other interface{}) (*Prototype, error) {
-	areEqual := reflect.DeepEqual(p.value, other)
-	return &Prototype{value: areEqual}, nil
-}
-
 func (p *Prototype) Type() *Prototype {
 	typeName := reflect.TypeOf(p.value).String()
 	return &Prototype{value: typeName}
