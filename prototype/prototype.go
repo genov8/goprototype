@@ -1,6 +1,10 @@
 package prototype
 
-import "errors"
+import (
+	"errors"
+	"reflect"
+	"strings"
+)
 
 type Prototype struct {
 	value interface{}
@@ -150,4 +154,3 @@ func reverseSlice(input []interface{}) []interface{} {
 	}
 	return reversed
 }
-
