@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	num := prototype.NewPrototype(10)
+	num := prototype.NewNumberPrototype(10)
 	numAdd, err := num.Add(2)
 	if err != nil {
 		log.Fatal(err)
