@@ -14,7 +14,7 @@ func main() {
 	}
 	fmt.Println("Result add:", numAdd.Value())
 
-	sliceProto := prototype.NewPrototype([]interface{}{1, "hello", 3.14})
+	sliceProto := prototype.NewSlicePrototype([]interface{}{1, "hello", 3.14})
 
 	newSliceProto, err := sliceProto.Append("new_element")
 	if err != nil {
