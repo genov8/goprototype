@@ -6,13 +6,13 @@ import (
 	"sort"
 )
 
-func (p *Prototype) Append(element interface{}) (*Prototype, error) {
+func (p *SlicePrototype) Append(element interface{}) (*SlicePrototype, error) {
 	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
 		return append(slice, element), nil
 	})
 }
 
-func (p *Prototype) Remove(index int) (*Prototype, error) {
+func (p *SlicePrototype) Remove(index int) (*SlicePrototype, error) {
 	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
 		if index < 0 || index >= len(slice) {
 			return nil, errors.New("index out of bounds")
@@ -29,7 +29,7 @@ func (p *Prototype) PrintSlice() (*Prototype, error) {
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Unique() (*Prototype, error) {
+func (p *SlicePrototype) Unique() (*SlicePrototype, error) {
 	return p.processSlice(func(slice []interface{}) ([]interface{}, error) {
 		seen := make(map[interface{}]bool)
 		var uniqueSlice []interface{}
@@ -44,19 +44,19 @@ func (p *Prototype) Unique() (*Prototype, error) {
 	})
 }
 
-func (p *Prototype) IndexOf(element interface{}) (*Prototype, error) {
+func (p *SlicePrototype) IndexOf(element interface{}) (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		for i, v := range slice {
 			if v == element {
-				return &Prototype{value: i}, nil
+				return &SlicePrototype{&Prototype{value: i}}, nil
 			}
 		}
-		return &Prototype{value: -1}, nil
+		return &SlicePrototype{&Prototype{value: -1}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Flatten() (*Prototype, error) {
+func (p *SlicePrototype) Flatten() (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		var flatSlice []interface{}
 		stack := slice
@@ -70,23 +70,23 @@ func (p *Prototype) Flatten() (*Prototype, error) {
 				flatSlice = append(flatSlice, item)
 			}
 		}
-		return &Prototype{value: flatSlice}, nil
+		return &SlicePrototype{&Prototype{value: flatSlice}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Map(operation func(interface{}) interface{}) (*Prototype, error) {
+func (p *SlicePrototype) Map(operation func(interface{}) interface{}) (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		mappedSlice := make([]interface{}, len(slice))
 		for i, v := range slice {
 			mappedSlice[i] = operation(v)
 		}
-		return &Prototype{value: mappedSlice}, nil
+		return &SlicePrototype{&Prototype{value: mappedSlice}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Filter(predicate func(interface{}) bool) (*Prototype, error) {
+func (p *SlicePrototype) Filter(predicate func(interface{}) bool) (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		var filteredSlice []interface{}
 		for _, v := range slice {
@@ -94,12 +94,12 @@ func (p *Prototype) Filter(predicate func(interface{}) bool) (*Prototype, error)
 				filteredSlice = append(filteredSlice, v)
 			}
 		}
-		return &Prototype{value: filteredSlice}, nil
+		return &SlicePrototype{&Prototype{value: filteredSlice}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Chunk(size int) (*Prototype, error) {
+func (p *SlicePrototype) Chunk(size int) (*SlicePrototype, error) {
 	if size <= 0 {
 		return nil, errors.New("chunk size must be greater than 0")
 	}
@@ -113,12 +113,12 @@ func (p *Prototype) Chunk(size int) (*Prototype, error) {
 			}
 			chunks = append(chunks, slice[i:end])
 		}
-		return &Prototype{value: chunks}, nil
+		return &SlicePrototype{&Prototype{value: chunks}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
 
-func (p *Prototype) Intersect(other *Prototype) (*Prototype, error) {
+func (p *SlicePrototype) Intersect(other *SlicePrototype) (*SlicePrototype, error) {
 	slice1, ok1 := p.value.([]interface{})
 	slice2, ok2 := other.value.([]interface{})
 	if !ok1 || !ok2 {
@@ -137,10 +137,10 @@ func (p *Prototype) Intersect(other *Prototype) (*Prototype, error) {
 		}
 	}
 
-	return &Prototype{value: intersection}, nil
+	return &SlicePrototype{&Prototype{value: intersection}}, nil
 }
 
-func (p *Prototype) Zip(other *Prototype) (*Prototype, error) {
+func (p *SlicePrototype) Zip(other *SlicePrototype) (*SlicePrototype, error) {
 	slice1, ok1 := p.value.([]interface{})
 	slice2, ok2 := other.value.([]interface{})
 	if !ok1 || !ok2 {
@@ -157,10 +157,10 @@ func (p *Prototype) Zip(other *Prototype) (*Prototype, error) {
 		zipped[i] = [2]interface{}{slice1[i], slice2[i]}
 	}
 
-	return &Prototype{value: zipped}, nil
+	return &SlicePrototype{&Prototype{value: zipped}}, nil
 }
 
-func (p *Prototype) Sort(customComparator func(a, b interface{}) bool) (*Prototype, error) {
+func (p *SlicePrototype) Sort(customComparator func(a, b interface{}) bool) (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		if customComparator == nil {
 			if isHomogeneous(slice, "int") {
@@ -180,7 +180,7 @@ func (p *Prototype) Sort(customComparator func(a, b interface{}) bool) (*Prototy
 			})
 		}
 
-		return &Prototype{value: slice}, nil
+		return &SlicePrototype{&Prototype{value: slice}}, nil
 	}
 
 	return nil, errors.New("value is not a slice")
@@ -202,7 +202,7 @@ func isHomogeneous(slice []interface{}, kind string) bool {
 	return true
 }
 
-func (p *Prototype) Rotate(steps int) (*Prototype, error) {
+func (p *SlicePrototype) Rotate(steps int) (*SlicePrototype, error) {
 	slice, ok := p.value.([]interface{})
 	if !ok {
 		return nil, errors.New("value is not a slice")
@@ -210,23 +210,23 @@ func (p *Prototype) Rotate(steps int) (*Prototype, error) {
 
 	n := len(slice)
 	if n == 0 || steps == 0 {
-		return &Prototype{value: slice}, nil
+		return &SlicePrototype{&Prototype{value: slice}}, nil
 	}
 
 	steps = ((steps % n) + n) % n
 
 	rotated := append(slice[n-steps:], slice[:n-steps]...)
 
-	return &Prototype{value: rotated}, nil
+	return &SlicePrototype{&Prototype{value: rotated}}, nil
 }
 
-func (p *Prototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*Prototype, error) {
+func (p *SlicePrototype) processSlice(operation func([]interface{}) ([]interface{}, error)) (*SlicePrototype, error) {
 	if slice, ok := p.value.([]interface{}); ok {
 		result, err := operation(slice)
 		if err != nil {
 			return nil, err
 		}
-		return &Prototype{value: result}, nil
+		return &SlicePrototype{&Prototype{value: result}}, nil
 	}
 	return nil, errors.New("value is not a slice")
 }
