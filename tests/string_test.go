@@ -7,7 +7,7 @@ import (
 )
 
 func TestToUpperCase(t *testing.T) {
-	str := prototype.NewPrototype("hello")
+	str := prototype.NewStringPrototype("hello")
 	upperStr, err := str.ToUpperCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -19,7 +19,7 @@ func TestToUpperCase(t *testing.T) {
 }
 
 func TestToLowerCase(t *testing.T) {
-	str := prototype.NewPrototype("HELLO")
+	str := prototype.NewStringPrototype("HELLO")
 	upperStr, err := str.ToLowerCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -31,7 +31,7 @@ func TestToLowerCase(t *testing.T) {
 }
 
 func TestCapitalize(t *testing.T) {
-	str := prototype.NewPrototype("HELLO")
+	str := prototype.NewStringPrototype("HELLO")
 	upperStr, err := str.Capitalize()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -43,7 +43,7 @@ func TestCapitalize(t *testing.T) {
 }
 
 func TestTrim(t *testing.T) {
-	str := prototype.NewPrototype("Hello World!")
+	str := prototype.NewStringPrototype("Hello World!")
 	upperStr, err := str.Trim("!")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -55,7 +55,7 @@ func TestTrim(t *testing.T) {
 }
 
 func TestSplit(t *testing.T) {
-	str := prototype.NewPrototype("Hello World")
+	str := prototype.NewStringPrototype("Hello World")
 	splittedStr, err := str.Split(" ")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -67,7 +67,7 @@ func TestSplit(t *testing.T) {
 }
 
 func TestStartsWith(t *testing.T) {
-	str := prototype.NewPrototype("Hello world")
+	str := prototype.NewStringPrototype("Hello world")
 	strStartsWith, err := str.StartsWith("Hello")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -78,7 +78,7 @@ func TestStartsWith(t *testing.T) {
 }
 
 func TestEndsWith(t *testing.T) {
-	str := prototype.NewPrototype("Hello world")
+	str := prototype.NewStringPrototype("Hello world")
 	strEndsWith, err := str.EndsWith("world")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -89,7 +89,7 @@ func TestEndsWith(t *testing.T) {
 }
 
 func TestRemoveWhitespace(t *testing.T) {
-	str := prototype.NewPrototype("Hello World!")
+	str := prototype.NewStringPrototype("Hello World!")
 
 	strRemoveWhitespace, err := str.RemoveWhitespace()
 	if err != nil {
@@ -102,7 +102,7 @@ func TestRemoveWhitespace(t *testing.T) {
 }
 
 func TestReplace(t *testing.T) {
-	strPrototype := prototype.NewPrototype("hello world")
+	strPrototype := prototype.NewStringPrototype("hello world")
 	result, err := strPrototype.Replace("world", "Go")
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -119,7 +119,7 @@ func TestReplace(t *testing.T) {
 		t.Errorf("Expected 'hello world', got %v", result.Value())
 	}
 
-	intPrototype := prototype.NewPrototype(123)
+	intPrototype := prototype.NewStringPrototype(123)
 	_, err = intPrototype.Replace("1", "2")
 	if err == nil {
 		t.Errorf("Expected an error for non-string value, got none")
@@ -127,7 +127,7 @@ func TestReplace(t *testing.T) {
 }
 
 func TestRepeat(t *testing.T) {
-	strPrototype := prototype.NewPrototype("Go")
+	strPrototype := prototype.NewStringPrototype("Go")
 	result, err := strPrototype.Repeat(3)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -149,7 +149,7 @@ func TestRepeat(t *testing.T) {
 		t.Errorf("Expected an error for negative repeat count, got none")
 	}
 
-	intPrototype := prototype.NewPrototype(123)
+	intPrototype := prototype.NewStringPrototype(123)
 	_, err = intPrototype.Repeat(3)
 	if err == nil {
 		t.Errorf("Expected an error for non-string value, got none")
@@ -157,7 +157,7 @@ func TestRepeat(t *testing.T) {
 }
 
 func TestReverseWords(t *testing.T) {
-	str := prototype.NewPrototype("Hello World Go")
+	str := prototype.NewStringPrototype("Hello World Go")
 	result, err := str.ReverseWords()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -167,7 +167,7 @@ func TestReverseWords(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("Hello")
+	str = prototype.NewStringPrototype("Hello")
 	result, err = str.ReverseWords()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -177,7 +177,7 @@ func TestReverseWords(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("")
+	str = prototype.NewStringPrototype("")
 	result, err = str.ReverseWords()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -189,7 +189,7 @@ func TestReverseWords(t *testing.T) {
 }
 
 func TestSlugify(t *testing.T) {
-	str := prototype.NewPrototype("Hello, World!")
+	str := prototype.NewStringPrototype("Hello, World!")
 	result, err := str.Slugify()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -198,7 +198,7 @@ func TestSlugify(t *testing.T) {
 		t.Errorf("Expected 'hello-world', got %v", result.Value())
 	}
 
-	str = prototype.NewPrototype("simple-slug")
+	str = prototype.NewStringPrototype("simple-slug")
 	result, err = str.Slugify()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -207,7 +207,7 @@ func TestSlugify(t *testing.T) {
 		t.Errorf("Expected 'simple-slug', got %v", result.Value())
 	}
 
-	str = prototype.NewPrototype(42)
+	str = prototype.NewStringPrototype(42)
 	_, err = str.Slugify()
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -215,7 +215,7 @@ func TestSlugify(t *testing.T) {
 }
 
 func TestPad(t *testing.T) {
-	str := prototype.NewPrototype("Go")
+	str := prototype.NewStringPrototype("Go")
 	result, err := str.Pad(5, "*", false)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -225,7 +225,7 @@ func TestPad(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("Go")
+	str = prototype.NewStringPrototype("Go")
 	result, err = str.Pad(5, "*", true)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -235,7 +235,7 @@ func TestPad(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("Golang")
+	str = prototype.NewStringPrototype("Golang")
 	result, err = str.Pad(5, "*", false)
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -245,13 +245,13 @@ func TestPad(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("Go")
+	str = prototype.NewStringPrototype("Go")
 	_, err = str.Pad(5, "**", false)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
 	}
 
-	notStr := prototype.NewPrototype(42)
+	notStr := prototype.NewStringPrototype(42)
 	_, err = notStr.Pad(5, "*", false)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -259,7 +259,7 @@ func TestPad(t *testing.T) {
 }
 
 func TestWordCount(t *testing.T) {
-	str := prototype.NewPrototype("Hello world from Go")
+	str := prototype.NewStringPrototype("Hello world from Go")
 	result, err := str.WordCount()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -269,7 +269,7 @@ func TestWordCount(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("  Hello    world  ")
+	str = prototype.NewStringPrototype("  Hello    world  ")
 	result, err = str.WordCount()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -279,7 +279,7 @@ func TestWordCount(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("")
+	str = prototype.NewStringPrototype("")
 	result, err = str.WordCount()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -289,7 +289,7 @@ func TestWordCount(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notStr := prototype.NewPrototype(42)
+	notStr := prototype.NewStringPrototype(42)
 	_, err = notStr.WordCount()
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
@@ -297,7 +297,7 @@ func TestWordCount(t *testing.T) {
 }
 
 func TestToCamelCase(t *testing.T) {
-	str := prototype.NewPrototype("hello world")
+	str := prototype.NewStringPrototype("hello world")
 	result, err := str.ToCamelCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -307,7 +307,7 @@ func TestToCamelCase(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("snake_case_example")
+	str = prototype.NewStringPrototype("snake_case_example")
 	result, err = str.ToCamelCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -317,7 +317,7 @@ func TestToCamelCase(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("kebab-case-example")
+	str = prototype.NewStringPrototype("kebab-case-example")
 	result, err = str.ToCamelCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -327,7 +327,7 @@ func TestToCamelCase(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	str = prototype.NewPrototype("123 test example")
+	str = prototype.NewStringPrototype("123 test example")
 	result, err = str.ToCamelCase()
 	if err != nil {
 		t.Errorf("Expected no error, got %v", err)
@@ -337,7 +337,7 @@ func TestToCamelCase(t *testing.T) {
 		t.Errorf("Expected %v, got %v", expected, result.Value())
 	}
 
-	notStr := prototype.NewPrototype(42)
+	notStr := prototype.NewStringPrototype(42)
 	_, err = notStr.ToCamelCase()
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
