@@ -21,4 +21,12 @@ func main() {
 		log.Fatalf("Error adding element: %v", err)
 	}
 	fmt.Println("Slice after adding:", newSliceProto.Value())
+
+	stringProto := prototype.NewStringPrototype("Hello")
+	newStringProto, err := stringProto.Reverse()
+
+	if err != nil {
+		log.Fatalf("Error string reverse: %v", err)
+	}
+	fmt.Println("String reverse:", newStringProto.Value())
 }
