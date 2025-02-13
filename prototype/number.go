@@ -5,15 +5,19 @@ import (
 	"math"
 )
 
-func (p *NumberPrototype) Add(n float64) (*NumberPrototype, error) {
-	switch v := p.value.(type) {
-	case int:
-		return &NumberPrototype{&Prototype{value: v + int(n)}}, nil
-	case float64:
-		return &NumberPrototype{&Prototype{value: v + n}}, nil
-	default:
-		return nil, errors.New("value is not a number")
-	}
+func (p *NumberPrototype) Add(n float64) *NumberPrototype {
+	p.Prototype = p.Prototype.apply(func(proto *Prototype) {
+		num := proto.getNumberType()
+		switch v := num.(type) {
+		case float64:
+			proto.value = v + n
+		case int64:
+			proto.value = float64(v) + n
+		default:
+			proto.err = errors.New("unexpected type")
+		}
+	})
+	return p
 }
 
 func (p *NumberPrototype) Multiply(n float64) (*NumberPrototype, error) {
