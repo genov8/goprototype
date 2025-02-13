@@ -31,6 +31,14 @@ func (p *Prototype) SetError(err error) {
 	p.err = err
 }
 
+func (p *Prototype) apply(fn func(*Prototype)) *Prototype {
+	if p.err != nil {
+		return p
+	}
+	fn(p)
+	return p
+}
+
 func (p *Prototype) Length() (int, error) {
 	switch v := p.value.(type) {
 	case string:
